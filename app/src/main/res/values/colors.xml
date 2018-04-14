@@ -11,8 +11,8 @@
     <color name="background_fragment">#ffffff</color>
 
     <!-- Whatsapp colors version set up
-    -->
     <color name="colorPrimary">#25d366</color>
     <color name="colorPrimaryDark">#128c7e</color>
     <color name="colorAccent">#25d366</color>
+    -->
 </resources>

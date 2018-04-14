@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,44 +89,47 @@ public class FragSignup extends Fragment implements View.OnClickListener, View.O
         return view;
     }
 
-    //Check if a string contains only characters
-    public boolean checkString(String string) {
+    /**
+     * Checks is the EditText contains a name
+     * @param string EditText that refers to the user's name
+     * @return true if the name contains only characters
+     */
+    public boolean checkCharOnly(String string) {
 
         string = string.toLowerCase();
 
-        boolean flag = true;
+        boolean verification = true;
+
         for(int i = 0; i<string.length();i++) {
 
             if(string.charAt(i)<'a' || string.charAt(i)>'z')
-                flag = false;
+                verification = false;
         }
 
-        return flag;
+        return verification;
+    }
+
+    /**
+     * Checks if the string inserted has an email format
+     * @param email string containing the email
+     * @return true if the string has an email format
+     */
+    public boolean isEmail(String email) { return Patterns.EMAIL_ADDRESS.matcher(email).matches(); }
+
+
+    /**
+     * Checks that the password contains at least a minimum number characters long and include a combination of
+     * uppercase and lowercase letters, numbers and symbols(". , \ - + * !")
+     * @param password string containing the password
+     * @param min lowest number of letters the password must contain
+     * @param max highest number of letters the password must contain
+     * @return true if the password follows the constraint
+     */
+    private boolean checkPassword(String password, int min, int max) {
+        return password.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_.,\\-+*!]).{" + min + "," + max + "})");
     }
 
     public void onClickSignup(View view) {
-
-        txtName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_name,0,0,0);
-        txtName.setTextColor(getResources().getColor(R.color.colorText));
-        errorName.setText("");
-        txtSurname.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_name,0,0,0);
-        txtSurname.setTextColor(getResources().getColor(R.color.colorText));
-        errorSurname.setText("");
-        txtBirthDate.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_date,0,0,0);
-        txtBirthDate.setTextColor(getResources().getColor(R.color.colorText));
-        txtGender.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_gender,0,0,0);
-        txtGender.setTextColor(getResources().getColor(R.color.colorText));
-        txtEmail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_email,0,0,0);
-        txtEmail.setTextColor(getResources().getColor(R.color.colorText));
-        errorEmail.setText("");
-        txtPassword.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_password,0,0,0);
-        txtPassword.setTextColor(getResources().getColor(R.color.colorText));
-        errorPassword.setText("");
-        txtPasswordConfirm.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_password,0,0,0);
-        txtPasswordConfirm.setTextColor(getResources().getColor(R.color.colorText));
-        errorPasswordConfirm.setText("");
-
-        boolean verification = true;
 
         String name = txtName.getText().toString();
         String surname = txtSurname.getText().toString();
@@ -135,58 +139,38 @@ public class FragSignup extends Fragment implements View.OnClickListener, View.O
         String password = txtPassword.getText().toString();
         String passwordConfirm = txtPasswordConfirm.getText().toString();
 
-        if(name.equals("") || !checkString(name)) {
-            txtName.setTextColor(getResources().getColor(R.color.colorRed));
-            txtName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_name, 0, R.drawable.ic_action_alert, 0);
+        boolean verification = true;
 
-            errorName.setText(getResources().getString(R.string.error_char_only));
-
+        if(email.equals("")) {
+            showEmailError();
             verification = false;
         }
-        if(surname.equals("") || !checkString(surname)) {
-            txtSurname.setTextColor(getResources().getColor(R.color.colorRed));
-            txtSurname.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_name, 0, R.drawable.ic_action_alert, 0);
-
-            errorSurname.setText(getResources().getString(R.string.error_char_only));
-
+        if(password.equals("")) {
+            showPasswordError();
+            verification = false;
+        }
+        if(passwordConfirm.equals("")) {
+            showPasswordConfirmError();
+            verification = false;
+        }
+        if(name.equals("")) {
+            showNameError();
+            verification = false;
+        }
+        if(surname.equals("")) {
+            showSurnameError();
             verification = false;
         }
         if(birthDate.equals("")) {
-            txtBirthDate.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_date, 0, R.drawable.ic_action_alert, 0);
-
+            showBirhDateError();
             verification = false;
         }
         if(gender.equals("")) {
-            txtGender.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_gender, 0, R.drawable.ic_action_alert, 0);
-
-            verification = false;
-        }
-        if(email.equals("")) {
-            txtEmail.setTextColor(getResources().getColor(R.color.colorRed));
-            txtEmail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_email, 0, R.drawable.ic_action_alert, 0);
-
-            errorEmail.setText(getResources().getString(R.string.error_email));
-            verification = false;
-        }
-        if(password.equals("") || !password.equals(passwordConfirm)) {
-            txtPassword.setTextColor(getResources().getColor(R.color.colorRed));
-            txtPassword.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_password, 0, R.drawable.ic_action_alert, 0);
-
-            errorPassword.setText(getResources().getString(R.string.error_password_constraint));
-
-            verification = false;
-        }
-        if(passwordConfirm.equals("") || !passwordConfirm.equals(password)) {
-            txtPasswordConfirm.setTextColor(getResources().getColor(R.color.colorRed));
-            txtPasswordConfirm.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_password, 0, R.drawable.ic_action_alert, 0);
-
-            errorPasswordConfirm.setText(getResources().getString(R.string.error_password_confirmation));
-
+            showGenderError();
             verification = false;
         }
 
-        if(verification == true) {
-
+        if(verification) {
             new SignupTask(getContext(),"REGISTER", preferences,editorPrefs).execute(name,surname,birthDate,gender,email,password);
         }
     }
@@ -267,7 +251,153 @@ public class FragSignup extends Fragment implements View.OnClickListener, View.O
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if(!hasFocus && !txtName.isFocused() && !txtSurname.isFocused() && !txtGender.isFocused() && !txtEmail.isFocused() && !txtPassword.isFocused() && !txtPasswordConfirm.isFocused())
+
+        String name = txtName.getText().toString();
+        String surname = txtSurname.getText().toString();
+        String birthDate = txtBirthDate.getText().toString();
+        String gender = (txtGender.getText().toString().length() > 0) ? txtGender.getText().toString().charAt(0)  + "" : "";
+        String email = txtEmail.getText().toString();
+        String password = txtPassword.getText().toString();
+        String passwordConfirm = txtPasswordConfirm.getText().toString();
+
+        boolean verification = true;
+
+        if(!hasFocus && !txtName.isFocused() && !txtSurname.isFocused() && !txtGender.isFocused()
+                && !txtEmail.isFocused() && !txtPassword.isFocused() && !txtPasswordConfirm.isFocused())
             hideKeyboard(v);
+
+        switch (v.getId()) {
+
+            case R.id.signup_txtUserEmail:
+                if(!email.equals("") && !isEmail(email)) {
+                    showEmailError();
+                    verification = false;
+
+                } else {
+                    dismissEmailError();
+                }
+                break;
+
+            case R.id.signup_txtPassword:
+                if(!password.equals("") && !checkPassword(password,6,25)) {
+                    showPasswordError();
+                    verification = false;
+
+                } else {
+                    dismissPasswordError();
+                }
+
+                break;
+
+            case R.id.signup_txtPasswordConfirm:
+                if(!passwordConfirm.equals("") && !passwordConfirm.equals(password)) {
+                    showPasswordConfirmError();
+                    verification = false;
+
+                } else {
+                    dismissPasswordConfirmError();
+                }
+                break;
+
+            case R.id.signup_txtName:
+                if(!name.equals("") && !checkCharOnly(name)) {
+                    showNameError();
+                    verification = false;
+
+                } else {
+                    dismissNameError();
+                }
+                break;
+
+            case R.id.signup_txtSurname:
+                if(surname.equals("") && !checkCharOnly(surname)) {
+                    showSurnameError();
+                    verification = false;
+                } else {
+                    dismissSurnameError();
+                }
+                break;
+
+            case R.id.signup_txtBirthDate:
+                if(!birthDate.equals("")) { dismissBirthDateError(); }
+                break;
+
+            case R.id.signup_txtGender:
+                if(!gender.equals("")) { dismissGenderError(); }
+                break;
+        }
+
+        btnSignup.setClickable(verification);
     }
+
+    /**
+     * The following methods are used to display the errors
+     */
+    private void showEmailError() {
+        txtEmail.setTextColor(getResources().getColor(R.color.colorRed));
+        txtEmail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_email, 0, R.drawable.ic_action_alert, 0);
+        errorEmail.setText(getResources().getString(R.string.error_email));
+    }
+    private void showPasswordError(){
+        txtPassword.setTextColor(getResources().getColor(R.color.colorRed));
+        txtPassword.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_password, 0, R.drawable.ic_action_alert, 0);
+        errorPassword.setText(getResources().getString(R.string.error_password_constraint));
+    }
+    private void showPasswordConfirmError(){
+        txtPasswordConfirm.setTextColor(getResources().getColor(R.color.colorRed));
+        txtPasswordConfirm.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_password, 0, R.drawable.ic_action_alert, 0);
+        errorPasswordConfirm.setText(getResources().getString(R.string.error_password_confirmation));
+    }
+    private void showNameError(){
+        txtName.setTextColor(getResources().getColor(R.color.colorRed));
+        txtName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_name, 0, R.drawable.ic_action_alert, 0);
+        errorName.setText(getResources().getString(R.string.error_char_only));
+    }
+    private void showSurnameError(){
+        txtSurname.setTextColor(getResources().getColor(R.color.colorRed));
+        txtSurname.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_name, 0, R.drawable.ic_action_alert, 0);
+        errorSurname.setText(getResources().getString(R.string.error_char_only));
+    }
+    private void showBirhDateError(){
+        txtBirthDate.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_date, 0, R.drawable.ic_action_alert, 0);
+    }
+    private void showGenderError(){
+        txtGender.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_gender, 0, R.drawable.ic_action_alert, 0);
+    }
+
+    /**
+     * The following methods are used to reset the layout statements
+     */
+    private void dismissEmailError() {
+        txtEmail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_email,0,0,0);
+        txtEmail.setTextColor(getResources().getColor(R.color.colorText));
+        errorEmail.setText("");
+    }
+    private void dismissPasswordError() {
+        txtPassword.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_password,0,0,0);
+        txtPassword.setTextColor(getResources().getColor(R.color.colorText));
+        errorPassword.setText("");}
+    private void dismissPasswordConfirmError() {
+        txtPasswordConfirm.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_password,0,0,0);
+        txtPasswordConfirm.setTextColor(getResources().getColor(R.color.colorText));
+        errorPasswordConfirm.setText("");}
+    private void dismissNameError() {
+        txtName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_name,0,0,0);
+        txtName.setTextColor(getResources().getColor(R.color.colorText));
+        errorName.setText("");
+    }
+    private void dismissSurnameError() {
+        txtSurname.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_name,0,0,0);
+        txtSurname.setTextColor(getResources().getColor(R.color.colorText));
+        errorSurname.setText("");
+    }
+    private void dismissBirthDateError() {
+        txtBirthDate.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_date,0,0,0);
+        txtBirthDate.setTextColor(getResources().getColor(R.color.colorText));
+    }
+    private void dismissGenderError() {
+        txtGender.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_gender,0,0,0);
+        txtGender.setTextColor(getResources().getColor(R.color.colorText));
+    }
+
 }

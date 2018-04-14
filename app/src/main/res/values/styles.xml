@@ -1,5 +1,5 @@
 <resources>
-
+    
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -9,6 +9,9 @@
 
         <!-- enable content window transition -->
         <item name="android:windowActivityTransitions">true</item>
+
+        <!-- enable customization of calendar theme by modifying myCalendarDialogTheme -->
+        <item name="android:datePickerDialogTheme">@style/myCalendarDialogTheme</item>
     </style>
 
     <style name="app_name_text">
@@ -28,14 +31,21 @@
         <item name="android:textSize">14dp</item>
         <item name="android:layout_marginTop">3dp</item>
     </style>
-
     <style name="signup_alerts">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorRed</item>
         <item name="android:textSize">11dp</item>
     </style>
-
+    
+    <style name="myCalendarDialogTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:calendarTextColor">@android:color/black</item>
+    </style>
+        
     <style name="login_phase_button">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>

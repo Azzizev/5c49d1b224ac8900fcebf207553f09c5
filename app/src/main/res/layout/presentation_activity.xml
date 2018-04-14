@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="cloud.dishwish.ragmart.dishwish.start.PresentationActivity"
     android:gravity="center_vertical"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/background_v3"
     android:theme="@style/Theme.AppCompat.Light">
 
     <TextView

@@ -18,7 +18,7 @@
 
     <string name="error_char_only">Only A-Z characters must be inserted</string>
     <string name="error_email">E-mail does not exist</string>
-    <string name="error_password_constraint">Password must be at least 6 characters long and include a combination of uppercase and lowercase letters, numbers &amp; symbols</string>
+    <string name="error_password_constraint">Password must be at least 6 characters long and include a combination of uppercase and lowercase letters, numbers &amp; symbols(". , \ - + * !")</string>
     <string name="error_password_confirmation">Password does not match</string>
 
     <string name="title_activity_test">TestActivity</string>

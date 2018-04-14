@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "943664251322",
+    "firebase_url": "https://dishwishproject.firebaseio.com",
+    "project_id": "dishwishproject",
+    "storage_bucket": "dishwishproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943664251322:android:14d0d8f636ac5ec1",
+        "android_client_info": {
+          "package_name": "cloud.dishwish.ragmart.dishwish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943664251322-f9fc5upip8f10gbveondl55lnlujofro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChZlovg9zdb7NmamGNLhbShlM8ejaToYk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

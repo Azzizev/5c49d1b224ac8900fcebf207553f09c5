@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cloud.dishwish.ragmart.dishwish.start.StartActivity"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:id="@+id/start_app_name"
+        style="@style/app_name_text"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:id="@+id/start_fragment"
+        android:layout_below="@id/start_app_name"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </LinearLayout>
+</RelativeLayout>

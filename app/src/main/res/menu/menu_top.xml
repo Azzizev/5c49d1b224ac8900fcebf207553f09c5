@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fontFamily="@font/arizonia">
+
+    <item
+        android:id="@+id/menu_search"
+        android:title="Search"
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="always"
+        android:orderInCategory="100"/>
+
+    <item
+        android:id="@+id/menu_contact"
+        android:title="@string/button_contact"
+        app:showAsAction="never"
+        android:orderInCategory="200"/>
+
+    <item
+        android:id="@+id/menu_logout"
+        android:title="@string/button_logout"
+        app:showAsAction="never"
+        android:orderInCategory="250"/>
+
+</menu>

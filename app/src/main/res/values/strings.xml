@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">DishWish</string>
+
+    <string name="button_signup">Sign Up</string>
+    <string name="button_login">Login</string>
+    <string name="button_login_facebook">Login with Facebook</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_logout">Logout</string>
+    <string name="button_contact">Contact us</string>
+
+    <string name="editText_user_email">E-mail</string>
+    <string name="editText_password">Password</string>
+    <string name="editText_password_confirm">Confirm password</string>
+    <string name="editText_user_name">Name</string>
+    <string name="editText_user_surname">Surname</string>
+    <string name="editText_birth_date">Birth date</string>
+    <string name="editText_gender">Gender</string>
+
+    <string name="error_char_only">Only A-Z characters must be inserted</string>
+    <string name="error_email">E-mail does not exist</string>
+    <string name="error_password_constraint">Password must be at least 6 characters long and include a combination of uppercase and lowercase letters, numbers &amp; symbols</string>
+    <string name="error_password_confirmation">Password does not match</string>
+
+    <string name="title_activity_test">TestActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_other">Other</string>
+
+    <string name="facebook_app_id">197258364383100</string>
+    <string name="fb_login_protocol_scheme">fb197258364383100</string>
+</resources>

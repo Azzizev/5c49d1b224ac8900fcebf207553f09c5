@@ -331,7 +331,7 @@ public class FragSignup extends Fragment implements View.OnClickListener, View.O
     }
 
     /**
-     * The following methods are used to display the errors
+     * The following methods are used to display errors
      */
     private void showEmailError() {
         txtEmail.setTextColor(getResources().getColor(R.color.colorRed));

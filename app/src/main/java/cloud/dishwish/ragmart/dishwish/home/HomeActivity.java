@@ -108,12 +108,12 @@ public class HomeActivity extends AppCompatActivity {
         appName.setSpan(new TypefaceSpan(this,"berkshire_swash.ttf"),0,appName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         topToolBar = (Toolbar) findViewById(R.id.home_toolBar);
         topToolBar.setTitle(appName);
+        setSupportActionBar(topToolBar);
 
         preferences = getSharedPreferences("prefs",MODE_PRIVATE);
         editorPrefs = preferences.edit();
 
         mAuth = FirebaseAuth.getInstance();
-        setSupportActionBar(topToolBar);
     }
 
     private void setupViewPager(ViewPager viewPager) {

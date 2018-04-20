@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".new_recipe.NewRecipeActivity"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/new_recipe_image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@android:color/black" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/new_recipe_profile_pic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/icon_eye"
+            android:layout_marginTop="205dp"
+            android:layout_marginLeft="25dp"/>
+
+        <EditText
+            android:id="@+id/new_recipe_title"
+            android:layout_below="@id/new_recipe_profile_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"/>
+
+    </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create recipe!"/>
+</LinearLayout>

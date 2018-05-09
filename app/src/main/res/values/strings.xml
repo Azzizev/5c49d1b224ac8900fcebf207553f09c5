@@ -7,6 +7,7 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_logout">Logout</string>
     <string name="button_contact">Contact us</string>
+    <string name="button_new_recipe">New Recipe</string>
 
     <string name="editText_user_email">E-mail</string>
     <string name="editText_password">Password</string>

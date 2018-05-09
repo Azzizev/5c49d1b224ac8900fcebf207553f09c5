@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.SectionsPageAdapter;
 import cloud.dishwish.ragmart.dishwish.classes.TypefaceSpan;
+import cloud.dishwish.ragmart.dishwish.new_recipe.NewRecipeActivity;
 import cloud.dishwish.ragmart.dishwish.start.StartActivity;
 
 public class HomeActivity extends AppCompatActivity {
@@ -160,6 +161,10 @@ public class HomeActivity extends AppCompatActivity {
         updateUI();
     }
 
+    private void onClickNewRecipe(){
+        Intent intent = new Intent(HomeActivity.this, NewRecipeActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onStart() {
 

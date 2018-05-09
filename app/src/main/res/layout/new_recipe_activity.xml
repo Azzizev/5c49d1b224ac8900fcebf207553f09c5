@@ -36,10 +36,18 @@
             android:layout_height="wrap_content"
             android:text="Title"/>
 
+        <EditText
+            android:id="@+id/new_recipe_ingredients"
+            android:layout_below="@+id/new_recipe_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add ingredients"/>
+
     </RelativeLayout>
     </ScrollView>
 
     <Button
+        android:id="@+id/new_recipe_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create recipe!"/>

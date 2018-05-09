@@ -145,6 +145,10 @@ public class HomeActivity extends AppCompatActivity {
             case  R.id.menu_search:
                 Toast.makeText(getApplicationContext(),"Search selected unavailable",Toast.LENGTH_LONG).show();
                 break;
+
+            case R.id.menu_new_recipe:
+                onClickNewRecipe();
+                break;
             case R.id.menu_contact:
                 Toast.makeText(getApplicationContext(),"Contact us selected unavailable",Toast.LENGTH_LONG).show();
                 break;

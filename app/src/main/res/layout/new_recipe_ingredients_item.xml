@@ -1,51 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="160dp"
-    android:layout_height="160dp"
+    android:layout_width="match_parent"
+    android:layout_height="76dp"
     android:id="@+id/ingredients_container"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:gravity="left"
+    android:background="@android:color/white">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ingredients_picture"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/icon_eye"/>
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:src="@drawable/icon_eye"
+        />
 
     <TextView
         android:id="@+id/ingredients_name"
+        android:layout_toEndOf="@+id/ingredients_picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ingredient"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
         android:textAllCaps="false"/>
 
     <EditText
         android:id="@+id/ingredients_amount"
-        android:layout_below="@+id/ingredients_name"
+        android:layout_toEndOf="@+id/ingredients_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
         android:background="@null"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_marginTop="30dp"
-        android:textSize="18dp"
-        android:layout_marginLeft="60dp"/>
+        android:layout_marginLeft="100dp"
+        android:textSize="20dp"
+        android:focusable="false"/>
 
     <EditText
         android:id="@+id/ingredients_measure_unity"
-        android:layout_below="@+id/ingredients_name"
+        android:layout_toEndOf="@+id/ingredients_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ml"
         android:background="@null"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_marginTop="30dp"
-        android:textSize="18dp"
-        android:layout_marginLeft="75dp"/>
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:focusable="false"/>
+
+    <LinearLayout
+        android:layout_below="@+id/ingredients_picture"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="63dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/colorHint"></LinearLayout>
 
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.start.FragStart;
+import cloud.dishwish.ragmart.dishwish.tasks.GetIngredients;
 
 public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,6 +21,8 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_recipe_activity);
+
+        new GetIngredients(this).execute();
 
         txtAddIngredient = (EditText) findViewById(R.id.new_recipe_ingredients);
 

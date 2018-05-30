@@ -198,7 +198,7 @@ public class FragLogin extends Fragment implements View.OnClickListener, View.On
             editorPrefs.putString("email",mAuth.getCurrentUser().getEmail());
             editorPrefs.putString("imageUrl",profile.getProfilePictureUri(150,150).toString());
 
-            new SignupTask(getContext(),"FACEBOOK",preferences,editorPrefs)
+            new SignupTask(getContext(), getActivity(),"FACEBOOK",preferences,editorPrefs)
                     .execute(profile.getFirstName(),profile.getLastName(),"00/00/0000","O",mAuth.getCurrentUser().getEmail(),null);
         }
     }

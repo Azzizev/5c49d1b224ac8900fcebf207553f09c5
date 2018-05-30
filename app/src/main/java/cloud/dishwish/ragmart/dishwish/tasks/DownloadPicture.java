@@ -19,6 +19,7 @@ public class DownloadPicture extends AsyncTask<String, Void, Bitmap>{
     public DownloadPicture(CircleImageView bmImage) {
         this.bmImage = bmImage;
     }
+    public DownloadPicture() {}
 
     protected Bitmap doInBackground(String... urls) {
 

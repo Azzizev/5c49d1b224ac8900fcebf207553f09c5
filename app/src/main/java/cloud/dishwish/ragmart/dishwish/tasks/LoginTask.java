@@ -40,7 +40,7 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
             String username = currentUser = arg0[0];
             String password =  arg0[1];
 
-            String link="http://www.dishwish.cloud/signin/log.php";
+            String link = "http://www.dishwish.cloud/signin/log.php";
 
             String data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
                     URLEncoder.encode(username, "UTF-8");

@@ -6,18 +6,16 @@ import android.os.AsyncTask;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 
-public class GetIngredients extends AsyncTask<String, String, String> {
+public class GetIngredients extends AsyncTask<String, Void, String> {
 
     private Context context;
-    public List<Ingredient> ingredients;
+    public static List<Ingredient> ings;
 
     public GetIngredients(Context context)
     {
@@ -49,7 +47,7 @@ public class GetIngredients extends AsyncTask<String, String, String> {
                 String uri = line.split("#")[1];
                 Bitmap picture = new DownloadPicture().doInBackground(uri);
 
-                ingredients.add(new Ingredient(name,amount,picture));
+                ings.add(new Ingredient(name,amount,picture));
             }
 
             return null;

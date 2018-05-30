@@ -1,10 +1,8 @@
 package cloud.dishwish.ragmart.dishwish.new_recipe;
 
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +15,7 @@ import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
-import cloud.dishwish.ragmart.dishwish.classes.RecyclerViewAdapter;
+import cloud.dishwish.ragmart.dishwish.tasks.GetIngredients;
 
 public class FragAddIngredients extends Fragment {
 
@@ -33,8 +31,9 @@ public class FragAddIngredients extends Fragment {
 
         ingredients = new ArrayList<Ingredient>();
 
-        for(int i = 0; i < 10; i++)
-            ingredients.add(new Ingredient("Ingredient " + (i+1), (i*100), BitmapFactory.decodeResource(getResources(),R.drawable.icon_eye)));
+        new GetIngredients(getContext()).execute();
+
+        ingredients = GetIngredients.ings;
 
         myRecycle = (RecyclerView) view.findViewById(R.id.ingredients_recycle);
         RecyclerViewAdapterIng myAdapter = new RecyclerViewAdapterIng(getContext(),ingredients);

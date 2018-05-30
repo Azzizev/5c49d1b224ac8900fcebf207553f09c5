@@ -26,7 +26,6 @@ public class FragHomePage extends Fragment{
     private RecyclerView myRecyclerView;
     private List<Recipe> recipes;
 
-
     public FragHomePage() {
     }
 

@@ -171,7 +171,7 @@ public class FragSignup extends Fragment implements View.OnClickListener, View.O
         }
 
         if(verification) {
-            new SignupTask(getContext(),"REGISTER", preferences,editorPrefs).execute(name,surname,birthDate,gender,email,password);
+            new SignupTask(getContext(), getActivity(),"REGISTER", preferences,editorPrefs).execute(name,surname,birthDate,gender,email,password);
         }
     }
 

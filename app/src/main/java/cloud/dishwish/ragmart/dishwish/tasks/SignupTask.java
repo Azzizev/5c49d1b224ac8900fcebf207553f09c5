@@ -1,5 +1,6 @@
 package cloud.dishwish.ragmart.dishwish.tasks;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,14 +23,17 @@ import cloud.dishwish.ragmart.dishwish.start.StartActivity;
 public class SignupTask extends AsyncTask <String, Integer, String>{
 
     private Context context;
+    private Activity activity;
     private String currentUser;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editorPrefs;
     private String signupMethod;
 
-    public SignupTask(Context context, String signupMethod, SharedPreferences preferences, SharedPreferences.Editor editor) {
+    public SignupTask(Context context, Activity activity,
+                      String signupMethod, SharedPreferences preferences, SharedPreferences.Editor editor) {
 
         this.context = context;
+        this.activity = activity;
         this.preferences = preferences;
         this.editorPrefs = editor;
         this.signupMethod = signupMethod;
@@ -106,6 +110,7 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
 
             Intent intent = new Intent(context, HomeActivity.class);
             context.startActivity(intent);
+            activity.finish();
 
         } else if(signupMethod.equals("FACEBOOK")){
             editorPrefs.putString("currentUser",currentUser);
@@ -113,6 +118,7 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
 
             Intent intent = new Intent(context, HomeActivity.class);
             context.startActivity(intent);
+            activity.finish();
         }
         else {
             editorPrefs.putString("currentUser","");

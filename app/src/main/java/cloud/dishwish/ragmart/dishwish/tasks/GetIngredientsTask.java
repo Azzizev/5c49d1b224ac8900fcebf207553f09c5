@@ -16,12 +16,12 @@ import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 
-public class GetIngredients extends AsyncTask<String, Void, String> {
+public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
     private Context context;
     public static List<Ingredient> ings;
 
-    public GetIngredients(Context context)
+    public GetIngredientsTask(Context context)
     {
         this.context = context;
         ings = new ArrayList<Ingredient>();

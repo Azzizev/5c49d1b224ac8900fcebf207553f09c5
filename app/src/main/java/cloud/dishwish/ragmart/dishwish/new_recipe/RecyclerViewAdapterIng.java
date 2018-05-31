@@ -35,7 +35,6 @@ public class RecyclerViewAdapterIng extends RecyclerView.Adapter<RecyclerViewAda
         v = LayoutInflater.from(myContext).inflate(R.layout.new_recipe_ingredients_item, parent, false);
         final RecyclerViewAdapterIng.MyViewHolder vHolder = new RecyclerViewAdapterIng.MyViewHolder(v);
 
-
         vHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +42,7 @@ public class RecyclerViewAdapterIng extends RecyclerView.Adapter<RecyclerViewAda
 
             }
         });
+
         return vHolder;
     }
 
@@ -74,4 +74,6 @@ public class RecyclerViewAdapterIng extends RecyclerView.Adapter<RecyclerViewAda
             picture = (ImageView) itemView.findViewById(R.id.ingredients_picture);
         }
     }
+
+
 }

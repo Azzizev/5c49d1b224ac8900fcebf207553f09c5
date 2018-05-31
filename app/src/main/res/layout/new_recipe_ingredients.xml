@@ -11,7 +11,8 @@
         android:id="@+id/ingredients_toolBar"
         layout="@layout/home_tool_bar"/>
 
-        <RelativeLayout
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/ingredients_recycler_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -23,6 +24,6 @@
                 android:padding="3dp"
                 android:scrollbars="vertical" />
 
-        </RelativeLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

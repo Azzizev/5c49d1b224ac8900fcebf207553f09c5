@@ -2,7 +2,7 @@ package cloud.dishwish.ragmart.dishwish.classes;
 
 import android.graphics.Bitmap;
 
-public class Ingredient {
+public class Ingredient{
 
     private String name;
     private Bitmap picture;
@@ -36,5 +36,13 @@ public class Ingredient {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public boolean compareTo(Object o) {
+
+        Ingredient ingredient = (Ingredient) o;
+
+        return (ingredient.getName().equals(getName()) && ingredient.getAmount() == getAmount()
+                && ingredient.getPicture().equals(getPicture()));
     }
 }

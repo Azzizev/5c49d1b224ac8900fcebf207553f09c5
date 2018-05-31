@@ -4,25 +4,25 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
-import cloud.dishwish.ragmart.dishwish.tasks.GetIngredients;
+import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
 
 public class FragAddIngredients extends Fragment {
 
     View view;
     private RecyclerView myRecycle;
     private List<Ingredient> ingredients;
+    private SwipeRefreshLayout recyclerContainer;
 
     @Nullable
     @Override
@@ -30,13 +30,22 @@ public class FragAddIngredients extends Fragment {
 
         view = inflater.inflate(R.layout.new_recipe_ingredients,container, false);
 
-        ingredients = GetIngredients.ings;
+        ingredients = GetIngredientsTask.ings;
 
         myRecycle = (RecyclerView) view.findViewById(R.id.ingredients_recycle);
+        recyclerContainer = (SwipeRefreshLayout) view.findViewById(R.id.ingredients_recycler_container);
 
-        RecyclerViewAdapterIng myAdapter = new RecyclerViewAdapterIng(getContext(),ingredients);
+        myRecycle.setNestedScrollingEnabled(false);
+        final RecyclerViewAdapterIng myAdapter = new RecyclerViewAdapterIng(getContext(),ingredients);
         myRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecycle.setAdapter(myAdapter);
+
+        myRecycle.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                myAdapter.notifyDataSetChanged();
+            }
+        });
 
         return view;
     }

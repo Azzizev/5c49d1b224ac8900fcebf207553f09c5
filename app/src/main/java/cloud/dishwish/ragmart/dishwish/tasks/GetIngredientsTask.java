@@ -19,7 +19,7 @@ import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
     private Context context;
-    public static List<Ingredient> ings;
+    private ArrayList<Ingredient> ings;
 
     public GetIngredientsTask(Context context)
     {
@@ -56,19 +56,23 @@ public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
                 int amount = 0;
                 String uri = line.split("#")[1];
-                Bitmap picture = new DownloadPicture().doInBackground(uri);
+                Bitmap picture = Bitmap.createScaledBitmap(new DownloadPicture().doInBackground(uri),25,25,true);
 
                 ings.add(new Ingredient(name,amount,picture));
             }
 
-            return null;
+            return "true";
         } catch(Exception e){
             return new String("Exception: " + e.getMessage());
         }
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(String result) {
         //Toast.makeText(context, s , Toast.LENGTH_SHORT).show();
+    }
+
+    public ArrayList<Ingredient> getIngs() {
+        return ings;
     }
 }

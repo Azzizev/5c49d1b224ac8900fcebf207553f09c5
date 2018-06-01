@@ -1,6 +1,8 @@
 package cloud.dishwish.ragmart.dishwish.classes;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -49,7 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.txtNameRecipe.setText(recipeList.get(position).getName());
-        holder.imageRecipe.setImageResource(recipeList.get(position).getImage());
+        holder.imageRecipe.setImageBitmap(recipeList.get(position).getImage());
     }
 
     @Override

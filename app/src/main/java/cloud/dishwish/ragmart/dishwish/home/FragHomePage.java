@@ -1,5 +1,7 @@
 package cloud.dishwish.ragmart.dishwish.home;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -50,6 +52,6 @@ public class FragHomePage extends Fragment{
         recipes = new ArrayList<>();
 
         for(int i = 0; i< 20; i++)
-            recipes.add(new Recipe(i,"Lasagna: " + (i+1), R.drawable.lasagne,"", Arrays.asList("Carne","Olio")));
+            recipes.add(new Recipe(i,"Lasagna: " + (i+1), Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.lasagne),400,200,false),"", Arrays.asList("Carne","Olio")));
     }
 }

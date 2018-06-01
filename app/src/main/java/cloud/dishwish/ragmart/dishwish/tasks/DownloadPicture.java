@@ -30,7 +30,7 @@ public class DownloadPicture extends AsyncTask<String, Void, Bitmap>{
                 connection.setDoInput(true);
                 connection.connect();
                 InputStream input = connection.getInputStream();
-                Bitmap myBitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeStream(input),120,120, true);
+                Bitmap myBitmap = BitmapFactory.decodeStream(input);
 
                 //Drawable d = new BitmapDrawable(getResources(),myBitmap);
                 //bmImage.setBackground(d);

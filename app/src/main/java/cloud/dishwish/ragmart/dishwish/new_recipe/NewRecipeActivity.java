@@ -21,8 +21,6 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_recipe_activity);
 
-        new GetIngredientsTask(this).execute();
-
         txtAddIngredient = (EditText) findViewById(R.id.new_recipe_ingredients);
 
         txtAddIngredient.setOnClickListener(this);

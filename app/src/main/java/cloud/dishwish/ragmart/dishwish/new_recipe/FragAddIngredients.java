@@ -33,9 +33,7 @@ public class FragAddIngredients extends Fragment {
 
         view = inflater.inflate(R.layout.new_recipe_ingredients,container, false);
 
-        ingredients = new GetIngredientsTask(getContext()).getIngs();
-
-        new GetIngredientsTask(getContext()).execute();
+        ingredients = GetIngredientsTask.ings;
 
         myRecycle = (RecyclerView) view.findViewById(R.id.ingredients_recycle);
 
@@ -46,6 +44,4 @@ public class FragAddIngredients extends Fragment {
 
         return view;
     }
-
-
 }

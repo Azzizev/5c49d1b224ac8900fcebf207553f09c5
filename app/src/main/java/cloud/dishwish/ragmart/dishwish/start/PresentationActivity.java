@@ -10,16 +10,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import cloud.dishwish.ragmart.dishwish.R;
+import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
 
 public class PresentationActivity extends AppCompatActivity {
 
-    private static int WELCOME_TIMEOUT = 2500;
+    private static int WELCOME_TIMEOUT = 3000;
     TextView appName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.presentation_activity);
+
+        new GetIngredientsTask(this).execute();
 
         appName = findViewById(R.id.presentation_app_name);
 

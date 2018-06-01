@@ -34,8 +34,9 @@ public class RecyclerViewAdapterIng extends RecyclerView.Adapter<RecyclerViewAda
         this.ingredientList = ingredientList;
     }
 
+    @NonNull
     @Override
-    public RecyclerViewAdapterIng.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerViewAdapterIng.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v;
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_recipe_ingredients_item, parent, false);
@@ -55,7 +56,10 @@ public class RecyclerViewAdapterIng extends RecyclerView.Adapter<RecyclerViewAda
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapterIng.MyViewHolder holder, final int position) {
 
-        new AsyncTask<MyViewHolder, Void, Bitmap>(){
+        holder.setName(ingredientList.get(position).getName());
+        holder.setPicture(ingredientList.get(position).getPicture());
+
+        /*new AsyncTask<MyViewHolder, Void, Bitmap>(){
 
             private MyViewHolder holder;
 
@@ -73,7 +77,7 @@ public class RecyclerViewAdapterIng extends RecyclerView.Adapter<RecyclerViewAda
                     holder.setPicture(ingredientList.get(position).getPicture());
                 }
             }
-        }.execute(holder);
+        }.execute(holder);*/
     }
 
     @Override
@@ -87,7 +91,6 @@ public class RecyclerViewAdapterIng extends RecyclerView.Adapter<RecyclerViewAda
         private TextView name;
         private EditText amount;
         private ImageView picture;
-        int position;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -96,7 +99,6 @@ public class RecyclerViewAdapterIng extends RecyclerView.Adapter<RecyclerViewAda
             name = (TextView) itemView.findViewById(R.id.ingredients_name);
             amount = (EditText) itemView.findViewById(R.id.ingredients_amount);
             picture = (ImageView) itemView.findViewById(R.id.ingredients_picture);
-            position = itemView.getVerticalScrollbarPosition();
         }
 
         public RelativeLayout getContainer() {

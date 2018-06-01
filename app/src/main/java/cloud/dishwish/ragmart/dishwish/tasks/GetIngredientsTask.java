@@ -3,6 +3,8 @@ package cloud.dishwish.ragmart.dishwish.tasks;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -15,11 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
+import cloud.dishwish.ragmart.dishwish.new_recipe.RecyclerViewAdapterIng;
 
 public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
     private Context context;
-    private ArrayList<Ingredient> ings;
+    public static ArrayList<Ingredient> ings;
 
     public GetIngredientsTask(Context context)
     {
@@ -56,7 +59,7 @@ public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
                 int amount = 0;
                 String uri = line.split("#")[1];
-                Bitmap picture = Bitmap.createScaledBitmap(new DownloadPicture().doInBackground(uri),25,25,true);
+                Bitmap picture = Bitmap.createBitmap(new DownloadPicture().doInBackground(uri));
 
                 ings.add(new Ingredient(name,amount,picture));
             }
@@ -69,10 +72,6 @@ public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        //Toast.makeText(context, s , Toast.LENGTH_SHORT).show();
-    }
 
-    public ArrayList<Ingredient> getIngs() {
-        return ings;
     }
 }

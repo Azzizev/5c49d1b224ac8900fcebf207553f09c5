@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +22,7 @@ import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Recipe;
-import cloud.dishwish.ragmart.dishwish.classes.RecyclerViewAdapter;
+import cloud.dishwish.ragmart.dishwish.classes.RV_AdapterAllRecipes;
 
 public class FragHomePage extends Fragment implements AdapterView.OnItemSelectedListener{
 
@@ -44,7 +43,7 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
         myRecyclerView = (RecyclerView) view.findViewById(R.id.home_recyclerView);
         recipeCategories = (Spinner) view.findViewById(R.id.home_categories_spinner);
 
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(),recipes);
+        RV_AdapterAllRecipes recyclerViewAdapter = new RV_AdapterAllRecipes(getContext(),recipes);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
 
@@ -56,6 +55,7 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
         recipeCategories.setAdapter(adapter);
 
         recipeCategories.setOnItemSelectedListener(this);
+
         return view;
     }
 

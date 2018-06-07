@@ -1,9 +1,8 @@
-package cloud.dishwish.ragmart.dishwish.classes;
+package cloud.dishwish.ragmart.dishwish.new_recipe;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -19,66 +18,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
+import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
+import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
 
-public class RV_AdapterAllIngredients extends RecyclerView.Adapter<RV_AdapterAllIngredients.AllIngredientVH> {
+public class RV_AdapterSlcIngredients extends RecyclerView.Adapter<RV_AdapterSlcIngredients.SlcIngredientVH> {
 
-    private Context myContext;
-    private ArrayList<Ingredient> ingredients;
+    private Context context;
     private ArrayList<Ingredient> selectedIngredients;
 
-    public RV_AdapterAllIngredients(Context myContext, ArrayList<Ingredient> ingredientList, ArrayList<Ingredient> selectedIngredients) {
-        this.myContext = myContext;
-        this.ingredients = ingredientList;
+    public RV_AdapterSlcIngredients(Context context, ArrayList<Ingredient> selectedIngredients){
+        this.context = context;
         this.selectedIngredients = selectedIngredients;
     }
 
     @NonNull
     @Override
-    public AllIngredientVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SlcIngredientVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_recipe_ingredients_all_item, parent, false);
-        AllIngredientVH vHolder = new AllIngredientVH(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_recipe_ingredients_selected_item, parent, false);
+        SlcIngredientVH vHolder = new SlcIngredientVH(v);
 
         return vHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final AllIngredientVH holder, final int position) {
+    public void onBindViewHolder(@NonNull SlcIngredientVH holder, int position) {
 
-        holder.setName(ingredients.get(position).getName());
-        holder.setPicture(ingredients.get(position).getPicture());
+        holder.setName(selectedIngredients.get(position).getName());
+        holder.setPicture(selectedIngredients.get(position).getPicture());
 
-        for(int i = 0; i<selectedIngredients.size(); i++){
-            if(holder.getName().equals(selectedIngredients.get(i)))
-                holder.container.setBackgroundColor(Color.GRAY);
-        }
-
-        holder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(!holder.isPresent(selectedIngredients)){
-                    holder.container.setBackgroundColor(Color.LTGRAY);
-                    selectedIngredients.add(ingredients.get(position));
-                } else {
-                    holder.container.setBackgroundColor(Color.WHITE);
-                    selectedIngredients.remove(ingredients.get(position));
-                }
-            }
-        });
-
-        if(!holder.isPresent(selectedIngredients)){
-            holder.container.setBackgroundColor(Color.WHITE);
-        }
+        holder.amount.setText("0");
+        holder.measureUnity.setText("m. u");
     }
 
     @Override
     public int getItemCount() {
-        return ingredients.size();
+        return selectedIngredients.size();
     }
 
-    public static class AllIngredientVH extends RecyclerView.ViewHolder {
+    public static class SlcIngredientVH extends RecyclerView.ViewHolder {
+
 
         private CardView container;
         private TextView name;
@@ -87,17 +66,14 @@ public class RV_AdapterAllIngredients extends RecyclerView.Adapter<RV_AdapterAll
         private ImageView picture;
         private int position;
 
-        public AllIngredientVH(View itemView) {
+        public SlcIngredientVH(View itemView) {
             super(itemView);
 
-            this.container = (CardView) itemView.findViewById(R.id.ingredients_container);
-            this.name = (TextView) itemView.findViewById(R.id.ingredients_name);
-            this.amount = (EditText) itemView.findViewById(R.id.ingredients_amount);
-            this.measureUnity = (EditText) itemView.findViewById(R.id.ingredients_measure_unity);
-            this.picture = (ImageView) itemView.findViewById(R.id.ingredients_picture);
-
-            amount.setText("");
-            measureUnity.setText("");
+            this.container = (CardView) itemView.findViewById(R.id.ingredients_selected_container);
+            this.name = (TextView) itemView.findViewById(R.id.ingredients_selected_name);
+            this.amount = (EditText) itemView.findViewById(R.id.ingredients_selected_amount);
+            this.measureUnity = (EditText) itemView.findViewById(R.id.ingredients_selected_measure_unity);
+            this.picture = (ImageView) itemView.findViewById(R.id.ingredients_selected_picture);
         }
 
         public boolean isPresent(ArrayList<Ingredient> ingredients){

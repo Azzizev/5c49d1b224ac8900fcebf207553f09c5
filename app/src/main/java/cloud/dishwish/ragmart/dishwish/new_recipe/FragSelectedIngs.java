@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cloud.dishwish.ragmart.dishwish.R;
-import cloud.dishwish.ragmart.dishwish.classes.RV_AdapterSlcIngredients;
+import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
 
 public class FragSelectedIngs extends Fragment{
 

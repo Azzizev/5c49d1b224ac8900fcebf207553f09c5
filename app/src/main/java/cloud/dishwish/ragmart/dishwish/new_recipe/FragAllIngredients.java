@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
-import cloud.dishwish.ragmart.dishwish.classes.RV_AdapterAllIngredients;
 import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
 
 public class FragAllIngredients extends Fragment {

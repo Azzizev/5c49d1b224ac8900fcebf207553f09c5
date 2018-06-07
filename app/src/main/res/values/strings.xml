@@ -23,9 +23,8 @@
     <string name="error_password_confirmation">Password does not match</string>
 
     <string name="title_activity_test">TestActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
+    <string name="ings_tab_all">Ingredients</string>
+    <string name="ings_tab_selected">Selected</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -35,4 +34,12 @@
 
     <string name="facebook_app_id">197258364383100</string>
     <string name="fb_login_protocol_scheme">fb197258364383100</string>
+
+    <string-array name="spinner_recipe_categories">
+        <item>Antipasti</item>
+        <item>Primo</item>
+        <item>Secondo</item>
+        <item>Contorno</item>
+        <item>Dessert</item>
+    </string-array>
 </resources>

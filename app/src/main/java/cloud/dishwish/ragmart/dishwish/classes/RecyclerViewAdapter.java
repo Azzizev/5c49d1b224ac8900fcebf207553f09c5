@@ -1,6 +1,7 @@
 package cloud.dishwish.ragmart.dishwish.classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
+import cloud.dishwish.ragmart.dishwish.new_recipe.NewRecipeActivity;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
@@ -33,22 +35,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         View v;
         v = LayoutInflater.from(myContext).inflate(R.layout.home_recipes_item, parent, false);
-        final MyViewHolder vHolder = new MyViewHolder(v);
 
-
-        vHolder.btnDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(myContext,"Test Click " + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
-        return vHolder;
+        return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         holder.txtNameRecipe.setText(recipeList.get(position).getName());
         holder.imageRecipe.setImageBitmap(recipeList.get(position).getImage());

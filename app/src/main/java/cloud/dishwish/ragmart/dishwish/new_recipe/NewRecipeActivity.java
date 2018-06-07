@@ -8,18 +8,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 import cloud.dishwish.ragmart.dishwish.R;
+import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
 
 public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Fragment fragIngredients;
     private EditText txtAddIngredient;
+    public static ArrayList<Ingredient> selectedIngredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_recipe_activity);
+
+        selectedIngredients = new ArrayList<Ingredient>();
 
         txtAddIngredient = (EditText) findViewById(R.id.new_recipe_ingredients);
 

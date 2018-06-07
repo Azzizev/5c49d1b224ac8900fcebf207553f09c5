@@ -3,21 +3,15 @@ package cloud.dishwish.ragmart.dishwish.tasks;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
-import cloud.dishwish.ragmart.dishwish.new_recipe.RecyclerViewAdapterIng;
 
 public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 

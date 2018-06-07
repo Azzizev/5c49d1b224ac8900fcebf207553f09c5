@@ -25,6 +25,13 @@
         <item name="android:fontFamily">@font/berkshire_swash</item>
     </style>
 
+    <style name="ings_tab_theme">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
     <style name="signup_editText">
         <item name="android:textColor">@color/colorText</item>
         <item name="android:textColorHint">@color/colorHint</item>

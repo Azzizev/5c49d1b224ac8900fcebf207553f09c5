@@ -1,47 +1,68 @@
 package cloud.dishwish.ragmart.dishwish.new_recipe;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
-import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
+import cloud.dishwish.ragmart.dishwish.classes.SectionsPageAdapter;
 
 public class FragAddIngredients extends Fragment {
 
     View view;
-    private RecyclerView myRecycle;
-    private ArrayList<Ingredient> ingredients;
+    private ViewPager mViewPager;
+    private TabLayout tabLayout;
+    private SectionsPageAdapter mSectionsPageAdapter;
+    private FragAllIngredients fragAllIngredients;
+    public static FragSelectedIngs fragSelectedIngs;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.new_recipe_ingredients,container, false);
+        mViewPager = (ViewPager) view.findViewById(R.id.new_recipe_ingredients_container);
+        tabLayout = (TabLayout) view.findViewById(R.id.ingredients_tabs);
 
-        ingredients = GetIngredientsTask.ings;
+        mSectionsPageAdapter = new SectionsPageAdapter(getChildFragmentManager());
+        tabLayout.setupWithViewPager(mViewPager);
+        setupViewPager(mViewPager);
 
-        myRecycle = (RecyclerView) view.findViewById(R.id.ingredients_recycle);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                fragSelectedIngs.myAdapter.notifyDataSetChanged();
+            }
 
-        RecyclerViewAdapterIng myAdapter = new RecyclerViewAdapterIng(getContext(),ingredients);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-        myRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
-        myRecycle.setAdapter(myAdapter);
+            }
 
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         return view;
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+
+        fragAllIngredients = new FragAllIngredients();
+        fragSelectedIngs = new FragSelectedIngs();
+        mSectionsPageAdapter.addFragment(fragAllIngredients,getResources().getString(R.string.ings_tab_all));
+        mSectionsPageAdapter.addFragment(fragSelectedIngs,getResources().getString(R.string.ings_tab_selected));
+
+        viewPager.setAdapter(mSectionsPageAdapter);
     }
 }

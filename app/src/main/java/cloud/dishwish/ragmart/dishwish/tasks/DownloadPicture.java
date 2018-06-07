@@ -36,9 +36,7 @@ public class DownloadPicture extends AsyncTask<String, Void, Bitmap>{
                 //bmImage.setBackground(d);
 
                 return myBitmap;
-            } else {
-                return null;
-            }
+            } else { return null; }
         } catch (IOException e) {
             return null;
         }

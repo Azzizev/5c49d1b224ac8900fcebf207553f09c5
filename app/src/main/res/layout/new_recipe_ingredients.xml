@@ -1,30 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".new_recipe.FragAddIngredients"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/ingredients_toolBar"
-        layout="@layout/home_tool_bar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/ingredients_recycler_container"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/new_recipe_ingredients_appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:theme="@style/ings_tab_theme">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/ingredients_recycle"
+            <include
+                android:id="@+id/ingredients_toolBar"
+                layout="@layout/home_tool_bar"/>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/ingredients_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:padding="3dp"
-                android:scrollbars="vertical" />
+                android:background="@color/colorWhite">
 
-        </RelativeLayout>
+                <android.support.design.widget.TabItem
+                    android:id="@+id/tab_all_ingredients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ings_tab_all" />
 
-</LinearLayout>
+                <android.support.design.widget.TabItem
+                    android:id="@+id/tab_selected_ingredients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ings_tab_selected" />
+
+            </android.support.design.widget.TabLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/new_recipe_ingredients_container"
+            android:layout_below="@+id/new_recipe_ingredients_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -12,6 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,10 +25,11 @@ import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Recipe;
 import cloud.dishwish.ragmart.dishwish.classes.RecyclerViewAdapter;
 
-public class FragHomePage extends Fragment{
+public class FragHomePage extends Fragment implements AdapterView.OnItemSelectedListener{
 
     View view;
     private RecyclerView myRecyclerView;
+    private Spinner recipeCategories;
     private List<Recipe> recipes;
 
     public FragHomePage() {
@@ -38,10 +42,20 @@ public class FragHomePage extends Fragment{
         view = inflater.inflate(R.layout.home_recipes_fragment,container,false);
 
         myRecyclerView = (RecyclerView) view.findViewById(R.id.home_recyclerView);
+        recipeCategories = (Spinner) view.findViewById(R.id.home_categories_spinner);
+
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(),recipes);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.spinner_recipe_categories, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        recipeCategories.setAdapter(adapter);
+
+        recipeCategories.setOnItemSelectedListener(this);
         return view;
     }
 
@@ -53,5 +67,14 @@ public class FragHomePage extends Fragment{
 
         for(int i = 0; i< 20; i++)
             recipes.add(new Recipe(i,"Lasagna: " + (i+1), Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.lasagne),400,200,false),"", Arrays.asList("Carne","Olio")));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getContext(),"Ciao mondo", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
     }
 }

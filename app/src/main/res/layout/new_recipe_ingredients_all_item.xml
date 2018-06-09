@@ -33,32 +33,6 @@
             android:textSize="20dp"
             android:textAllCaps="false"/>
 
-        <EditText
-            android:id="@+id/ingredients_amount"
-            android:layout_toEndOf="@+id/ingredients_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:background="@null"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="240dp"
-            android:textSize="20dp"
-            android:focusable="false"/>
-
-        <EditText
-            android:id="@+id/ingredients_measure_unity"
-            android:layout_toEndOf="@+id/ingredients_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ml"
-            android:background="@null"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="20dp"
-            android:focusable="false"/>
-
         <LinearLayout
             android:layout_below="@+id/ingredients_picture"
             android:layout_width="match_parent"

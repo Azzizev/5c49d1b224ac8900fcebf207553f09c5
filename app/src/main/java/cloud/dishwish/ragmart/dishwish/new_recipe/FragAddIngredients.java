@@ -16,9 +16,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import cloud.dishwish.ragmart.dishwish.R;
+import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 import cloud.dishwish.ragmart.dishwish.classes.SectionsPageAdapter;
 import cloud.dishwish.ragmart.dishwish.classes.TypefaceSpan;
 
@@ -43,23 +45,6 @@ public class FragAddIngredients extends Fragment {
         mSectionsPageAdapter = new SectionsPageAdapter(getChildFragmentManager());
         tabLayout.setupWithViewPager(mViewPager);
         setupViewPager(mViewPager);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                fragSelectedIngs.myAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
         //Change application bar's family font
         SpannableString appName = new SpannableString(getResources().getString(R.string.app_name).toString());
@@ -110,6 +95,15 @@ public class FragAddIngredients extends Fragment {
         switch (id){
 
             case R.id.menu_ingredients_add:
+
+                EditText txtIngredients = NewRecipeActivity.txtAddIngredient;
+
+                txtIngredients.setText("");
+
+                for(Ingredient ingredient : NewRecipeActivity.selectedIngredients) {
+                    txtIngredients.setText(ingredient.getName() + ", " + txtIngredients.getText());
+                }
+
                 getActivity().onBackPressed();
                 break;
         }

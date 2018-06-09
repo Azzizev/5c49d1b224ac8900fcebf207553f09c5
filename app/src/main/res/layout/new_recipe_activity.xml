@@ -35,19 +35,36 @@
             android:layout_below="@id/new_recipe_profile_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"/>
+            android:hint="Title" />
 
-        <EditText
-            android:id="@+id/new_recipe_ingredients"
-            android:layout_below="@+id/new_recipe_title"
+            <EditText
+                android:id="@+id/new_recipe_ingredients"
+                android:layout_below="@id/new_recipe_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Add ingredients"
+                android:focusable="false"
+                android:maxLines="1"
+                android:inputType="text"
+                android:scrollHorizontally="true"/>
+
+        <ScrollView
+            android:id="@+id/new_recipe_process_area"
+            android:layout_below="@id/new_recipe_ingredients"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Add ingredients"
-            android:focusable="false"/>
+            android:layout_height="200dp">
+
+            <EditText
+                android:id="@+id/new_recipe_process"
+                android:hint="Process"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textMultiLine"/>
+        </ScrollView>
 
         <Button
             android:id="@+id/new_recipe_create"
-            android:layout_below="@id/new_recipe_ingredients"
+            android:layout_below="@id/new_recipe_process_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create recipe!"/>

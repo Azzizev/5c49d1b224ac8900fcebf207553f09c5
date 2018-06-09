@@ -53,7 +53,7 @@ public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
                 int amount = 0;
                 String uri = line.split("#")[1];
-                Bitmap picture = Bitmap.createBitmap(new DownloadPicture().doInBackground(uri));
+                Bitmap picture = Bitmap.createScaledBitmap(new DownloadPicture().doInBackground(uri), 50,50,true);
 
                 ings.add(new Ingredient(name,amount,picture));
             }

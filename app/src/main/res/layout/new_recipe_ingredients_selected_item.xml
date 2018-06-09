@@ -22,9 +22,10 @@
         <TextView
             android:id="@+id/ingredients_selected_name"
             android:layout_toEndOf="@+id/ingredients_selected_picture"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Ingredient"
+            android:maxLines="1"
             android:textColor="@android:color/black"
             android:layout_centerVertical="true"
             android:textStyle="bold"
@@ -36,28 +37,32 @@
         <EditText
             android:id="@+id/ingredients_selected_amount"
             android:layout_toEndOf="@+id/ingredients_selected_picture"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:scrollHorizontally="true"
+            android:hint="0"
             android:background="@null"
             android:textColor="@android:color/black"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="215dp"
+            android:layout_marginLeft="120dp"
             android:textSize="20dp"
-            android:focusable="false"/>
+            android:inputType="text"
+            android:gravity="right"/>
 
         <EditText
             android:id="@+id/ingredients_selected_measure_unity"
             android:layout_toEndOf="@+id/ingredients_selected_amount"
-            android:layout_width="wrap_content"
+            android:layout_width="86dp"
             android:layout_height="wrap_content"
-            android:text="ml"
+            android:scrollHorizontally="true"
+            android:hint="ml"
             android:background="@null"
             android:textColor="@android:color/black"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="3dp"
             android:textSize="20dp"
-            android:focusable="false"/>
+            android:inputType="text"
+            android:gravity="right"/>
 
         <LinearLayout
             android:layout_below="@+id/ingredients_selected_picture"

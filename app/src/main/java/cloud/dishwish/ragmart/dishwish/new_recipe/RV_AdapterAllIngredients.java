@@ -1,6 +1,7 @@
 package cloud.dishwish.ragmart.dishwish.new_recipe;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -60,7 +61,7 @@ public class RV_AdapterAllIngredients extends RecyclerView.Adapter<RV_AdapterAll
             public void onClick(View v) {
 
                 if(!holder.isPresent(selectedIngredients)){
-                    holder.container.setBackgroundColor(Color.LTGRAY);
+                    holder.container.setBackgroundColor(Color.argb(255,236,236,236));
                     selectedIngredients.add(ingredients.get(position));
 
                     FragAddIngredients.fragSelectedIngs.myRecycle.getAdapter().notifyDataSetChanged();
@@ -76,7 +77,7 @@ public class RV_AdapterAllIngredients extends RecyclerView.Adapter<RV_AdapterAll
         if(!holder.isPresent(selectedIngredients)){
             holder.container.setBackgroundColor(Color.WHITE);
         } else {
-            holder.container.setBackgroundColor(Color.LTGRAY);
+            holder.container.setBackgroundColor(Color.argb(255,236,236,236));
         }
     }
 
@@ -89,8 +90,6 @@ public class RV_AdapterAllIngredients extends RecyclerView.Adapter<RV_AdapterAll
 
         private CardView container;
         private TextView name;
-        private EditText amount;
-        private EditText measureUnity;
         private ImageView picture;
         private int position;
 
@@ -99,12 +98,7 @@ public class RV_AdapterAllIngredients extends RecyclerView.Adapter<RV_AdapterAll
 
             this.container = (CardView) itemView.findViewById(R.id.ingredients_container);
             this.name = (TextView) itemView.findViewById(R.id.ingredients_name);
-            this.amount = (EditText) itemView.findViewById(R.id.ingredients_amount);
-            this.measureUnity = (EditText) itemView.findViewById(R.id.ingredients_measure_unity);
             this.picture = (ImageView) itemView.findViewById(R.id.ingredients_picture);
-
-            amount.setText("");
-            measureUnity.setText("");
         }
 
         public boolean isPresent(ArrayList<Ingredient> ingredients){
@@ -149,14 +143,6 @@ public class RV_AdapterAllIngredients extends RecyclerView.Adapter<RV_AdapterAll
 
         public void setName(String name) {
             this.name.setText(name);
-        }
-
-        public int getAmount() {
-            return Integer.parseInt(amount.getText().toString());
-        }
-
-        public void setAmount(int amount) {
-            this.amount.setText(amount + "");
         }
 
         public Bitmap getPicture() {

@@ -7,11 +7,21 @@ public class Ingredient{
     private String name;
     private Bitmap picture;
     private int amount;
+    private String measureUnity;
 
     public Ingredient(String name, int amount, Bitmap picture) {
         this.name = name;
         this.amount = amount;
         this.picture = picture;
+        this.measureUnity = "";
+    }
+
+    public String getMeasureUnity() {
+        return measureUnity;
+    }
+
+    public void setMeasureUnity(String measureUnity) {
+        this.measureUnity = measureUnity;
     }
 
     public Bitmap getPicture() {

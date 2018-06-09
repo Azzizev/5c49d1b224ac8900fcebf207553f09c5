@@ -36,8 +36,8 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <course android:name="android.intent.course.DEFAULT" />
+                <course android:name="android.intent.course.BROWSABLE" />
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
@@ -53,7 +53,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <course android:name="android.intent.course.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".new_recipe.NewRecipeActivity"

@@ -1,7 +1,6 @@
 package cloud.dishwish.ragmart.dishwish.classes;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 
 import java.util.List;
 
@@ -13,17 +12,36 @@ public class Recipe {
     //Da cambiare tipo
     private Bitmap image;
 
+    private String author;
     private String process;
+    private String course;
     private List<String> ingredients;
 
-    public Recipe(int id, String name, Bitmap image, String process, List<String> ingredients) {
+    public Recipe(String author, int id, String name, Bitmap image, String process, String course, List<String> ingredients) {
+        this.author = author;
         this.id = id;
         this.name = name;
         this.image = image;
         this.process = process;
+        this.course = course;
         this.ingredients = ingredients;
     }
 
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
     public int getId() {
         return id;
     }

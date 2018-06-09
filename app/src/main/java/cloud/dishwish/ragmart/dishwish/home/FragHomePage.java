@@ -66,7 +66,11 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
         recipes = new ArrayList<>();
 
         for(int i = 0; i< 20; i++)
-            recipes.add(new Recipe(i,"Lasagna: " + (i+1), Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.lasagne),400,200,false),"", Arrays.asList("Carne","Olio")));
+            recipes.add(new Recipe("Default", i,
+                    "Lasagna: " + (i+1),
+                    Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.lasagne), 400,200,false),"",
+                    "Primo",
+                    Arrays.asList("Carne","Olio")));
     }
 
     @Override

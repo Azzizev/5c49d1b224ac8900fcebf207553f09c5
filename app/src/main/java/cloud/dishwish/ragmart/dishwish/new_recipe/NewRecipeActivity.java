@@ -1,25 +1,34 @@
 package cloud.dishwish.ragmart.dishwish.new_recipe;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
+import cloud.dishwish.ragmart.dishwish.tasks.InsertRecipeTask;
 
-public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener,View.OnFocusChangeListener {
+public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener,View.OnFocusChangeListener, AdapterView.OnItemSelectedListener {
 
     private EditText txtTitle;
     private Button btnCreate;
     private EditText txtProcess;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editorPrefs;
+    private Spinner recipeCategories;
     public static EditText txtAddIngredient;
     public static ArrayList<Ingredient> selectedIngredients;
 
@@ -27,6 +36,9 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_recipe_activity);
+
+        preferences = getSharedPreferences("prefs",MODE_PRIVATE);
+        editorPrefs = preferences.edit();
 
         selectedIngredients = new ArrayList<Ingredient>();
 
@@ -36,7 +48,18 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         txtProcess = (EditText) findViewById(R.id.new_recipe_process);
 
         txtTitle.setOnFocusChangeListener(this);
+        txtProcess.setOnFocusChangeListener(this);
         txtAddIngredient.setOnClickListener(this);
+        btnCreate.setOnClickListener(this);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.spinner_recipe_categories, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        recipeCategories.setAdapter(adapter);
+
+        recipeCategories.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -46,13 +69,48 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
             case R.id.new_recipe_ingredients:
                 onClickAddIngredients();
                 break;
-
+            case R.id.new_recipe_create:
+                onClickCreate();
+                break;
         }
+    }
+
+    private void onClickCreate() {
+
+        String username = preferences.getString("currentUser","");
+        String password = preferences.getString("password","");
+        String fbToken = preferences.getString("fbToken","");
+        String author = preferences.getString("Name","");
+        String title = txtTitle.getText().toString();
+        String process = txtProcess.getText().toString();
+        String course = (String) recipeCategories.getSelectedItem();
+
+        InsertRecipeTask insertion = new InsertRecipeTask(this, selectedIngredients);
+
+        insertion.execute(username, password, fbToken, author, title, process, course);
+
+        if(insertion.doInBackground().contains("SUCCESS"))
+            onBackPressed();
     }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
 
+        switch (v.getId()) {
+            case R.id.new_recipe_title:
+                checkTitle();
+                break;
+            case R.id.new_recipe_process:
+                checkProcess(txtProcess.getText().toString());
+                break;
+        }
+    }
+
+    private void checkTitle() {
+        if(!checkCharOnly(txtTitle.getText().toString()))
+            showTitleError();
+        else
+            dismissTitleError();
     }
 
     private void onClickAddIngredients() {
@@ -68,17 +126,19 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         fragmentTransaction.commit();
     }
 
-    public boolean checkTitle(String title){
-
-        return checkCharOnly(title);
-    }
-
     public boolean checkProcess(String process){
 
         boolean verifyProcess = true;
 
-        return verifyProcess;
+        for(int i = 0; i<process.length(); i++)
+        {
+            char c = process.charAt(i);
 
+            if(c == '@')
+                verifyProcess = false;
+        }
+
+        return verifyProcess;
     }
 
     /**
@@ -99,5 +159,25 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         }
 
         return verification;
+    }
+
+    private void showTitleError(){
+        txtTitle.setTextColor(getResources().getColor(R.color.colorRed));
+        txtTitle.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_alert, 0);
+    }
+
+    private void dismissTitleError() {
+        txtTitle.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
+        txtTitle.setTextColor(getResources().getColor(R.color.colorText));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

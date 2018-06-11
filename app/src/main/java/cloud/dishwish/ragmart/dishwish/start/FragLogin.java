@@ -54,7 +54,6 @@ public class FragLogin extends Fragment implements View.OnClickListener, View.On
     private Button btnLogin;
     private EditText txtUserEmail;
     private EditText txtPassword;
-
     private SharedPreferences preferences;
     private SharedPreferences.Editor editorPrefs;
 
@@ -184,7 +183,7 @@ public class FragLogin extends Fragment implements View.OnClickListener, View.On
 
         String userEmail = txtUserEmail.getText().toString();
         String password = txtPassword.getText().toString();
-        new LoginTask(getContext(), preferences, editorPrefs).execute(userEmail,password);
+        new LoginTask(getContext(), preferences, editorPrefs).execute(userEmail,password,"","","","","");
         getActivity().finish();
     }
 
@@ -199,7 +198,7 @@ public class FragLogin extends Fragment implements View.OnClickListener, View.On
             editorPrefs.putString("imageUrl",profile.getProfilePictureUri(150,150).toString());
 
             new SignupTask(getContext(), getActivity(),"FACEBOOK",preferences,editorPrefs)
-                    .execute(profile.getFirstName(),profile.getLastName(),"00/00/0000","O",mAuth.getCurrentUser().getEmail(),null);
+                    .execute(profile.getFirstName(),profile.getLastName(),"00/00/0000","O",mAuth.getCurrentUser().getEmail(),"FCB_USR_PSW");
         }
     }
 
@@ -212,29 +211,30 @@ public class FragLogin extends Fragment implements View.OnClickListener, View.On
 
         if(currentUser != null){
 
-            updateUI(currentUser);
+            updateUI(currentUser, preferences.getString("fbToken",""));
         }
     }
 
-    private void updateUI(FirebaseUser currentUser) {
+    private void updateUI(FirebaseUser currentUser, String token) {
 
-        editorPrefs.putString("currentUser",currentUser.getEmail());
-        editorPrefs.putString("name",Profile.getCurrentProfile().getFirstName());
-        editorPrefs.putString("surname",Profile.getCurrentProfile().getLastName());
-        editorPrefs.putString("email",currentUser.getEmail());
-        editorPrefs.putString("imageUrl",Profile.getCurrentProfile().getProfilePictureUri(150,150).toString());
-        editorPrefs.commit();
+        new LoginTask(getContext(),preferences,editorPrefs).execute("","",
+                currentUser.getEmail(),
+                token,
+                Profile.getCurrentProfile().getFirstName(),
+                Profile.getCurrentProfile().getLastName(),
+                Profile.getCurrentProfile().getProfilePictureUri(150,150).toString());
 
-        Toast.makeText(getContext(), "Sei connesso " + currentUser.getDisplayName(), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getContext(),HomeActivity.class);
         startActivity(intent);
         getActivity().finish();
     }
 
-    private void handleFacebookAccessToken(AccessToken token) {
+    private void handleFacebookAccessToken(final AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+
+        Toast.makeText(getContext(),token.getUserId().toString().length() + "",Toast.LENGTH_LONG).show();
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -246,7 +246,9 @@ public class FragLogin extends Fragment implements View.OnClickListener, View.On
 
                             btnFBLogin.setEnabled(true);
 
-                            updateUI(user);
+                            editorPrefs.putString("fbToken",token.getUserId().toString());
+                            editorPrefs.commit();
+                            updateUI(user, token.getUserId().toString());
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

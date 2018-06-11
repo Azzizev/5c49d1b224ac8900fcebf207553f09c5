@@ -1,7 +1,10 @@
 package cloud.dishwish.ragmart.dishwish.home;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,8 +24,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
+import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 import cloud.dishwish.ragmart.dishwish.classes.Recipe;
 import cloud.dishwish.ragmart.dishwish.classes.RV_AdapterAllRecipes;
+import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
+import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class FragHomePage extends Fragment implements AdapterView.OnItemSelectedListener{
 
@@ -30,9 +38,9 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
     private RecyclerView myRecyclerView;
     private Spinner recipeCategories;
     private List<Recipe> recipes;
-
-    public FragHomePage() {
-    }
+    public static RV_AdapterAllRecipes recyclerViewAdapter;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editorPrefs;
 
     @Nullable
     @Override
@@ -43,7 +51,14 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
         myRecyclerView = (RecyclerView) view.findViewById(R.id.home_recyclerView);
         recipeCategories = (Spinner) view.findViewById(R.id.home_categories_spinner);
 
-        RV_AdapterAllRecipes recyclerViewAdapter = new RV_AdapterAllRecipes(getContext(),recipes);
+        preferences = getActivity().getSharedPreferences("prefs",MODE_PRIVATE);
+        editorPrefs = preferences.edit();
+
+        recipes = GetRecipesTask.recs;
+
+        recipes.add(new Recipe(preferences.getString("currentUser",""), "Ricetta boh",
+                BitmapFactory.decodeResource(getResources(),R.drawable.lasagne),"Vai a caso","Contorno",Arrays.asList(new Ingredient("Latte", 1, BitmapFactory.decodeResource(getResources(),R.drawable.default_img)))));
+        recyclerViewAdapter = new RV_AdapterAllRecipes(getContext(),recipes);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
 
@@ -62,23 +77,15 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        recipes = new ArrayList<>();
-
-        for(int i = 0; i< 20; i++)
-            recipes.add(new Recipe("Default", i,
-                    "Lasagna: " + (i+1),
-                    Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.lasagne), 400,200,false),"",
-                    "Primo",
-                    Arrays.asList("Carne","Olio")));
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getContext(),"Ciao mondo", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),"Ciao mondo", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

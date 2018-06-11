@@ -90,7 +90,7 @@ public class FragSignup extends Fragment implements View.OnClickListener, View.O
     }
 
     /**
-     * Checks is the EditText contains a name
+     * Checks if the EditText contains a name
      * @param string EditText that refers to the user's name
      * @return true if the name contains only characters
      */

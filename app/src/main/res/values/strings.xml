@@ -8,6 +8,7 @@
     <string name="button_logout">Logout</string>
     <string name="button_contact">Contact us</string>
     <string name="button_new_recipe">New Recipe</string>
+    <string name="button_create_recipe">Crea ricetta!</string>
 
     <string name="editText_user_email">E-mail</string>
     <string name="editText_password">Password</string>
@@ -16,6 +17,9 @@
     <string name="editText_user_surname">Surname</string>
     <string name="editText_birth_date">Birth date</string>
     <string name="editText_gender">Gender</string>
+    <string name="editText_title">Titolo</string>
+    <string name="editText_ingredients">Aggiungi ingredienti</string>
+    <string name="editText_process">Procedimento</string>
 
     <string name="error_char_only">Only A-Z characters must be inserted</string>
     <string name="error_email">E-mail does not exist</string>

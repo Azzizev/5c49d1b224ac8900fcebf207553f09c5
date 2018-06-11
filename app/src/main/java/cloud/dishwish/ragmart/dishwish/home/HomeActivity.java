@@ -19,11 +19,15 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 import cloud.dishwish.ragmart.dishwish.R;
+import cloud.dishwish.ragmart.dishwish.classes.Recipe;
 import cloud.dishwish.ragmart.dishwish.classes.SectionsPageAdapter;
 import cloud.dishwish.ragmart.dishwish.classes.TypefaceSpan;
 import cloud.dishwish.ragmart.dishwish.new_recipe.NewRecipeActivity;
 import cloud.dishwish.ragmart.dishwish.start.StartActivity;
+import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -38,18 +42,23 @@ public class HomeActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editorPrefs;
 
+    public static FragHomePage fragHomePage;
+    public static FragFavoriteRecipes fragFavoriteRecipes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.home_activity);
 
+        preferences = getSharedPreferences("prefs",MODE_PRIVATE);
+        editorPrefs = preferences.edit();
+
         Log.d(TAG, "onCreate: Starting.");
         mViewPager = (ViewPager) findViewById(R.id.container);
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         setupViewPager(mViewPager);
-
 
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -65,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     case 0:
                         tab.setIcon(R.drawable.ic_home_red);
+                        fragHomePage.recyclerViewAdapter.notifyDataSetChanged();
                         break;
 
                     case 1:
@@ -111,9 +121,6 @@ public class HomeActivity extends AppCompatActivity {
         topToolBar.setTitle(appName);
         setSupportActionBar(topToolBar);
 
-        preferences = getSharedPreferences("prefs",MODE_PRIVATE);
-        editorPrefs = preferences.edit();
-
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -121,8 +128,11 @@ public class HomeActivity extends AppCompatActivity {
 
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new FragHomePage(),"");
-        adapter.addFragment(new FragFavoriteRecipes(),"");
+        fragHomePage = new FragHomePage();
+        fragFavoriteRecipes = new FragFavoriteRecipes();
+
+        adapter.addFragment(fragHomePage,"");
+        adapter.addFragment(fragFavoriteRecipes,"");
         adapter.addFragment(new FragProfile(),"");
 
         viewPager.setAdapter(adapter);

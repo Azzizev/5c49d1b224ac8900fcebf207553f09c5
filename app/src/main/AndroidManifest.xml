@@ -56,9 +56,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".new_recipe.NewRecipeActivity"
+        <activity
+            android:name=".new_recipe.NewRecipeActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".home.details.DetailsActivity"></activity>
     </application>
 
 </manifest>

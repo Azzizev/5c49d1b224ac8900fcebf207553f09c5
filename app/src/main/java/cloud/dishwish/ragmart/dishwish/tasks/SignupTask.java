@@ -24,7 +24,8 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
 
     private Context context;
     private Activity activity;
-    private String currentUser;
+    private String username;
+    private String psw;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editorPrefs;
     private String signupMethod;
@@ -47,10 +48,10 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
             String surname =  arg0[1];
             String birthDate = arg0[2].split("/")[2] + "/" + arg0[2].split("/")[1] + "/" + arg0[2].split("/")[0]; //Changes date format 'DD/MM/YYYY' to 'YYYY/MM/DD'
             String gender = arg0[3];
-            String userEmail = currentUser = arg0[4];
-            String password = arg0[5];
+            String userEmail = username = arg0[4];
+            String password = psw = arg0[5];
 
-            String link="http://www.dishwish.cloud/signin/reg.php";
+            String link="https://www.dishwish.cloud/signin/reg.php";
 
             String data  = URLEncoder.encode("Name", "UTF-8") + "=" +
                     URLEncoder.encode(name, "UTF-8");
@@ -99,7 +100,9 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
 
         if(result.contains("SUCCESS")) {
 
-            editorPrefs.putString("currentUser",currentUser);
+            new GetRecipesTask(context).execute(username,psw);
+
+            editorPrefs.putString("currentUser",username);
             editorPrefs.commit();
 
             if(FirebaseAuth.getInstance() != null)
@@ -109,14 +112,19 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
                 LoginManager.getInstance().logOut();
 
             Intent intent = new Intent(context, HomeActivity.class);
+            intent.putExtra("password",psw);
             context.startActivity(intent);
             activity.finish();
 
         } else if(signupMethod.equals("FACEBOOK")){
-            editorPrefs.putString("currentUser",currentUser);
+
+            new GetRecipesTask(context).execute(username,psw);
+
+            editorPrefs.putString("currentUser",username);
             editorPrefs.commit();
 
             Intent intent = new Intent(context, HomeActivity.class);
+            intent.putExtra("password","");
             context.startActivity(intent);
             activity.finish();
         }

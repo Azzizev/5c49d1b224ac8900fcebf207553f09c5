@@ -20,7 +20,7 @@
             android:id="@+id/new_recipe_image"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:background="@android:color/black" />
+            android:background="@drawable/default_img" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/new_recipe_profile_pic"
@@ -37,22 +37,28 @@
             android:layout_height="wrap_content"
             android:hint="Title" />
 
-            <EditText
-                android:id="@+id/new_recipe_ingredients"
-                android:layout_below="@id/new_recipe_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Add ingredients"
-                android:focusable="false"
-                android:maxLines="1"
-                android:inputType="text"
-                android:scrollHorizontally="true"/>
+        <Spinner
+            android:id="@+id/new_recipe_course"
+            android:layout_below="@id/new_recipe_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/new_recipe_ingredients"
+            android:layout_below="@id/new_recipe_course"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add ingredients"
+            android:focusable="false"
+            android:maxLines="1"
+            android:inputType="text"
+            android:scrollHorizontally="true"/>
 
         <ScrollView
             android:id="@+id/new_recipe_process_area"
             android:layout_below="@id/new_recipe_ingredients"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="120dp">
 
             <EditText
                 android:id="@+id/new_recipe_process"

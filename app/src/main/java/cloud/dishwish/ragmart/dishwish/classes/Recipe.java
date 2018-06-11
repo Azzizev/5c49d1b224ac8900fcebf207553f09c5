@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Recipe {
 
-    private int id;
     private String name;
 
     //Da cambiare tipo
@@ -15,11 +14,10 @@ public class Recipe {
     private String author;
     private String process;
     private String course;
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
 
-    public Recipe(String author, int id, String name, Bitmap image, String process, String course, List<String> ingredients) {
+    public Recipe(String author, String name, Bitmap image, String process, String course, List<Ingredient> ingredients) {
         this.author = author;
-        this.id = id;
         this.name = name;
         this.image = image;
         this.process = process;
@@ -41,13 +39,6 @@ public class Recipe {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -72,11 +63,11 @@ public class Recipe {
         this.process = process;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -84,8 +75,7 @@ public class Recipe {
 
         Recipe recipe = (Recipe) o;
 
-        return (recipe.getName().equals(getName()) && recipe.getId() == getId()
-                && recipe.getImage().equals(getImage()) && recipe.getIngredients().equals(getIngredients())
-                && recipe.getProcess().equals(getProcess()));
+        return (recipe.getName().equals(getName()) && recipe.getImage().equals(getImage())
+                && recipe.getIngredients().equals(getIngredients()) && recipe.getProcess().equals(getProcess()));
     }
 }

@@ -3,6 +3,7 @@ package cloud.dishwish.ragmart.dishwish.tasks;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -29,7 +30,7 @@ public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
         try
         {
-            String link = "http://www.dishwish.cloud/utility/grd.php";
+            String link = "https://www.dishwish.cloud/utility/grd.php";
 
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
@@ -43,22 +44,25 @@ public class GetIngredientsTask extends AsyncTask<String, Void, String> {
             BufferedReader reader = new BufferedReader(new
                     InputStreamReader(conn.getInputStream()));
 
+            StringBuilder result = new StringBuilder();
             String line = null;
 
             // Read Server Response
             while((line = reader.readLine()) != null) {
 
+                result.append(line);
+
                 //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
-                String name = line.split("#")[0];
+                String name = line.split("@&@")[0];
 
                 int amount = 0;
-                String uri = line.split("#")[1];
+                String uri = line.split("@&@")[1];
                 Bitmap picture = Bitmap.createScaledBitmap(new DownloadPicture().doInBackground(uri), 50,50,true);
 
                 ings.add(new Ingredient(name,amount,picture));
             }
 
-            return "true";
+            return result.toString();
         } catch(Exception e){
             return new String("Exception: " + e.getMessage());
         }
@@ -66,6 +70,6 @@ public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
+        //Toast.makeText(context,result,Toast.LENGTH_LONG).show();
     }
 }

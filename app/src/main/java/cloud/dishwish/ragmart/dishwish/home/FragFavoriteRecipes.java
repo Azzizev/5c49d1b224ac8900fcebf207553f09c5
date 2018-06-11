@@ -58,7 +58,7 @@ public class FragFavoriteRecipes extends Fragment implements AdapterView.OnItemS
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getContext(),"Ciao mondo", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),"Ciao mondo", Toast.LENGTH_SHORT).show();
     }
 
     @Override

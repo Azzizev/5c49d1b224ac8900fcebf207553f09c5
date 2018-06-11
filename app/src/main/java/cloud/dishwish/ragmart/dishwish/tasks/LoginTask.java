@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.facebook.Profile;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -23,9 +25,15 @@ import cloud.dishwish.ragmart.dishwish.start.StartActivity;
 public class LoginTask extends AsyncTask<String, Integer, String> {
 
     private Context context;
-    private String currentUser;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editorPrefs;
+    private String username;
+    private String password;
+    private String fbUsername;
+    private String fbToken;
+    private String fbName;
+    private String fbSurname;
+    private String fbPicture;
 
     public LoginTask(Context context, SharedPreferences preferences, SharedPreferences.Editor editor) {
         this.context = context;
@@ -37,15 +45,37 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... arg0) {
 
         try{
-            String username = currentUser = arg0[0];
-            String password =  arg0[1];
+            username = arg0[0];
+            password = arg0[1];
+            fbUsername = arg0[2];
+            fbToken = arg0[3];
+            fbName = arg0[4];
+            fbSurname = arg0[5];
+            fbPicture = arg0[6];
 
-            String link = "http://www.dishwish.cloud/signin/log.php";
+            String link;
+            String data;
 
-            String data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
-                    URLEncoder.encode(username, "UTF-8");
-            data += "&" + URLEncoder.encode("Password", "UTF-8") + "=" +
-                    URLEncoder.encode(password, "UTF-8");
+            if(username.isEmpty() && password.isEmpty()) {
+                link = "https://www.dishwish.cloud/signin/fblog.php";
+                data  = URLEncoder.encode("FBEmail", "UTF-8") + "=" +
+                        URLEncoder.encode(fbUsername, "UTF-8");
+                data += "&" + URLEncoder.encode("FBToken", "UTF-8") + "=" +
+                        URLEncoder.encode(fbToken, "UTF-8");
+                data += "&" + URLEncoder.encode("FBName", "UTF-8") + "=" +
+                        URLEncoder.encode(fbName, "UTF-8");
+                data += "&" + URLEncoder.encode("FBSurname", "UTF-8") + "=" +
+                        URLEncoder.encode(fbSurname, "UTF-8");
+                data += "&" + URLEncoder.encode("FBPicture", "UTF-8") + "=" +
+                        URLEncoder.encode(fbPicture, "UTF-8");
+            }
+            else {
+                link = "https://www.dishwish.cloud/signin/log.php";
+                data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
+                        URLEncoder.encode(username, "UTF-8");
+                data += "&" + URLEncoder.encode("Password", "UTF-8") + "=" +
+                        URLEncoder.encode(password, "UTF-8");
+            }
 
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
@@ -81,8 +111,22 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
 
         if(result.contains("SUCCESS")) {
 
-            editorPrefs.putString("currentUser",currentUser);
-            editorPrefs.putString("imageUrl","null");
+
+            if(!fbUsername.isEmpty() && !fbToken.isEmpty()) {
+                new GetRecipesTask(context).execute(username,password,"null");
+                editorPrefs.putString("currentUser", username);
+                editorPrefs.putString("password", password);
+                editorPrefs.putString("imageUrl", "null");
+            } else {
+                new GetRecipesTask(context).execute("null","null",fbToken);
+                editorPrefs.putString("currentUser",fbUsername);
+                editorPrefs.putString("fbToken",fbToken);
+                editorPrefs.putString("name", fbName);
+                editorPrefs.putString("surname",fbSurname);
+                editorPrefs.putString("email",fbUsername);
+                editorPrefs.putString("imageUrl",fbPicture);
+            }
+
             editorPrefs.commit();
 
             Intent intent = new Intent(context, HomeActivity.class);

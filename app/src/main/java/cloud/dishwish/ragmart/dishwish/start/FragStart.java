@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import cloud.dishwish.ragmart.dishwish.home.HomeActivity;
 import cloud.dishwish.ragmart.dishwish.R;
+import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -100,7 +101,9 @@ public class FragStart extends Fragment implements View.OnClickListener{
         editorPrefs.putString("imageUrl",Profile.getCurrentProfile().getProfilePictureUri(150,150).toString());
         editorPrefs.commit();
 
-        Toast.makeText(getContext(), "Sei connesso " + currentUser.getDisplayName(), Toast.LENGTH_LONG).show();
+        new GetRecipesTask(getContext()).execute("null","null",preferences.getString("fbToken",""));
+
+        Toast.makeText(getContext(), preferences.getString("fbToken",""), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getContext(),HomeActivity.class);
         startActivity(intent);
     }

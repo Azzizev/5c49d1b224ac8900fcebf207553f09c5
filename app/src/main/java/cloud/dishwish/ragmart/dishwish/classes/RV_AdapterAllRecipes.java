@@ -1,6 +1,7 @@
 package cloud.dishwish.ragmart.dishwish.classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -22,6 +23,7 @@ import java.util.List;
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.home.FragFavoriteRecipes;
 import cloud.dishwish.ragmart.dishwish.home.FragHomePage;
+import cloud.dishwish.ragmart.dishwish.home.details.DetailsActivity;
 
 public class RV_AdapterAllRecipes extends RecyclerView.Adapter<RV_AdapterAllRecipes.MyViewHolder> {
 
@@ -48,6 +50,14 @@ public class RV_AdapterAllRecipes extends RecyclerView.Adapter<RV_AdapterAllReci
 
         holder.txtNameRecipe.setText(recipeList.get(position).getName());
         holder.imageRecipe.setImageBitmap(recipeList.get(position).getImage());
+
+        holder.btnDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(myContext, DetailsActivity.class);
+                myContext.startActivity(intent);
+            }
+        });
 
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override

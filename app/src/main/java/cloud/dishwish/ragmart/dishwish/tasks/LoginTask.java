@@ -77,6 +77,8 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result){
 
+        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+
         if(result.contains("SUCCESS")) {
 
             editorPrefs.putString("currentUser",currentUser);

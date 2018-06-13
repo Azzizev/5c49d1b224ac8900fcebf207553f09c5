@@ -2,6 +2,7 @@ package cloud.dishwish.ragmart.dishwish.classes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -24,15 +25,28 @@ import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.home.FragFavoriteRecipes;
 import cloud.dishwish.ragmart.dishwish.home.FragHomePage;
 import cloud.dishwish.ragmart.dishwish.home.details.DetailsActivity;
+import cloud.dishwish.ragmart.dishwish.tasks.GetRecipeDetailsTask;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class RV_AdapterAllRecipes extends RecyclerView.Adapter<RV_AdapterAllRecipes.MyViewHolder> {
 
     Context myContext;
     List<Recipe> recipeList;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editorPrefs;
+    private String username;
+    private String password;
+    private String fbToken;
 
     public RV_AdapterAllRecipes(Context myContext, List<Recipe> recipeList) {
         this.myContext = myContext;
         this.recipeList = recipeList;
+        preferences = myContext.getSharedPreferences("prefs",MODE_PRIVATE);
+        editorPrefs = preferences.edit();
+        username = preferences.getString("currentUser","");
+        password = preferences.getString("password","");
+        fbToken = preferences.getString("fbToken","");
     }
 
     @NonNull
@@ -54,8 +68,7 @@ public class RV_AdapterAllRecipes extends RecyclerView.Adapter<RV_AdapterAllReci
         holder.btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(myContext, DetailsActivity.class);
-                myContext.startActivity(intent);
+                new GetRecipeDetailsTask(myContext, recipeList.get(position)).execute(username,password,fbToken);
             }
         });
 

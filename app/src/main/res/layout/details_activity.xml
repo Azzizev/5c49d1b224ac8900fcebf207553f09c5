@@ -32,7 +32,7 @@
                 android:layout_marginLeft="25dp"/>
 
             <TextView
-                android:id="@+id/details_author"
+                android:id="@+id/details_recipe_author"
                 android:layout_below="@id/details_recipe_image"
                 android:layout_toEndOf="@+id/details_recipe_profile_pic"
                 android:layout_width="wrap_content"

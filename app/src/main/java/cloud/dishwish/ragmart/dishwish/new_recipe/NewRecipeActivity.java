@@ -1,6 +1,7 @@
 package cloud.dishwish.ragmart.dishwish.new_recipe;
 
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,12 +14,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
+import cloud.dishwish.ragmart.dishwish.classes.Recipe;
+import cloud.dishwish.ragmart.dishwish.home.HomeActivity;
 import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
+import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 import cloud.dishwish.ragmart.dishwish.tasks.InsertRecipeTask;
 
 public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener,View.OnFocusChangeListener, AdapterView.OnItemSelectedListener {
@@ -46,6 +51,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         txtAddIngredient = (EditText) findViewById(R.id.new_recipe_ingredients);
         btnCreate = (Button) findViewById(R.id.new_recipe_create);
         txtProcess = (EditText) findViewById(R.id.new_recipe_process);
+        recipeCategories = (Spinner) findViewById(R.id.new_recipe_course);
 
         txtTitle.setOnFocusChangeListener(this);
         txtProcess.setOnFocusChangeListener(this);
@@ -85,12 +91,14 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         String process = txtProcess.getText().toString();
         String course = (String) recipeCategories.getSelectedItem();
 
+        if(!fbToken.isEmpty()) {
+            username = "";
+            password = "";
+        }
+
         InsertRecipeTask insertion = new InsertRecipeTask(this, selectedIngredients);
 
         insertion.execute(username, password, fbToken, author, title, process, course);
-
-        if(insertion.doInBackground().contains("SUCCESS"))
-            onBackPressed();
     }
 
     @Override
@@ -154,7 +162,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
 
         for(int i = 0; i<string.length();i++) {
 
-            if(string.charAt(i)<'a' || string.charAt(i)>'z')
+            if(string.charAt(i)<'a' || string.charAt(i)>'z' && string.charAt(i) != ' ')
                 verification = false;
         }
 

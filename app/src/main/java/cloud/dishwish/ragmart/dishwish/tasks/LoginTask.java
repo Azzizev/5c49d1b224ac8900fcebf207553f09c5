@@ -57,6 +57,8 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
             String data;
 
             if(username.isEmpty() && password.isEmpty()) {
+                username = "null";
+                password = "null";
                 link = "https://www.dishwish.cloud/signin/fblog.php";
                 data  = URLEncoder.encode("FBEmail", "UTF-8") + "=" +
                         URLEncoder.encode(fbUsername, "UTF-8");
@@ -70,6 +72,7 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
                         URLEncoder.encode(fbPicture, "UTF-8");
             }
             else {
+                fbToken = "null";
                 link = "https://www.dishwish.cloud/signin/log.php";
                 data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
                         URLEncoder.encode(username, "UTF-8");
@@ -111,20 +114,25 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
 
         if(result.contains("SUCCESS")) {
 
+            new GetRecipesTask(context).execute(username,password,fbToken);
+            new GetCurrentUserTask(context).execute(username,password,fbToken);
 
-            if(!fbUsername.isEmpty() && !fbToken.isEmpty()) {
-                new GetRecipesTask(context).execute(username,password,"null");
-                editorPrefs.putString("currentUser", username);
+            if(fbUsername.isEmpty() && fbToken.isEmpty()) {
+                /*editorPrefs.putString("currentUser", username);
+                editorPrefs.putString("fbToken","");
                 editorPrefs.putString("password", password);
-                editorPrefs.putString("imageUrl", "null");
+                editorPrefs.putString("name", "");
+                editorPrefs.putString("surname","");
+                editorPrefs.putString("email","");
+                editorPrefs.putString("imageUrl", "null");*/
             } else {
-                new GetRecipesTask(context).execute("null","null",fbToken);
-                editorPrefs.putString("currentUser",fbUsername);
+                /*editorPrefs.putString("currentUser",fbUsername);
                 editorPrefs.putString("fbToken",fbToken);
+                editorPrefs.putString("password", fbToken);
                 editorPrefs.putString("name", fbName);
                 editorPrefs.putString("surname",fbSurname);
                 editorPrefs.putString("email",fbUsername);
-                editorPrefs.putString("imageUrl",fbPicture);
+                editorPrefs.putString("imageUrl",fbPicture);*/
             }
 
             editorPrefs.commit();

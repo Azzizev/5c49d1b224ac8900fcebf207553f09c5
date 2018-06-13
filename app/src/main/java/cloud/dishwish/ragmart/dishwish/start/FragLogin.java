@@ -224,6 +224,7 @@ public class FragLogin extends Fragment implements View.OnClickListener, View.On
                 Profile.getCurrentProfile().getLastName(),
                 Profile.getCurrentProfile().getProfilePictureUri(150,150).toString());
 
+        Toast.makeText(getContext(),Profile.getCurrentProfile().getProfilePictureUri(150,150).toString().length() + "",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(),HomeActivity.class);
         startActivity(intent);
         getActivity().finish();
@@ -234,7 +235,8 @@ public class FragLogin extends Fragment implements View.OnClickListener, View.On
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
 
-        Toast.makeText(getContext(),token.getUserId().toString().length() + "",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(),token.getUserId().toString().length() + "",Toast.LENGTH_LONG).show();
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override

@@ -21,6 +21,7 @@ import java.util.List;
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.RV_AdapterAllRecipes;
 import cloud.dishwish.ragmart.dishwish.classes.Recipe;
+import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 
 public class FragFavoriteRecipes extends Fragment implements AdapterView.OnItemSelectedListener{
 
@@ -28,6 +29,7 @@ public class FragFavoriteRecipes extends Fragment implements AdapterView.OnItemS
     public static RecyclerView myRecyclerView;
     private Spinner recipeCategories;
     public static ArrayList<Recipe> favRecipes;
+    public static RV_AdapterAllRecipes recyclerViewAdapter;
 
     @Nullable
     @Override
@@ -35,12 +37,11 @@ public class FragFavoriteRecipes extends Fragment implements AdapterView.OnItemS
 
         view = inflater.inflate(R.layout.home_favorite_recipes_fragment,container,false);
 
-        favRecipes = new ArrayList<Recipe>();
-
         myRecyclerView = (RecyclerView) view.findViewById(R.id.fav_recyclerView);
         recipeCategories = (Spinner) view.findViewById(R.id.fav_categories_spinner);
 
-        RV_AdapterAllRecipes recyclerViewAdapter = new RV_AdapterAllRecipes(getContext(),favRecipes);
+        favRecipes = GetRecipesTask.favRecs;
+        recyclerViewAdapter = new RV_AdapterAllRecipes(getContext(), favRecipes);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
 

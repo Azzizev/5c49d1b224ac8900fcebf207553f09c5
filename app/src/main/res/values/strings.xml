@@ -41,9 +41,9 @@
 
     <string-array name="spinner_recipe_categories">
         <item>Antipasti</item>
-        <item>Primo</item>
-        <item>Secondo</item>
-        <item>Contorno</item>
-        <item>Dessert</item>
+        <item>Contorni</item>
+        <item>Dolci</item>
+        <item>Primi</item>
+        <item>Secondi</item>
     </string-array>
 </resources>

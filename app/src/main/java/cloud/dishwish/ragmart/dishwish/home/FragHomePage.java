@@ -56,8 +56,8 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
 
         recipes = GetRecipesTask.recs;
 
-        recipes.add(new Recipe(preferences.getString("currentUser",""), "Ricetta boh",
-                BitmapFactory.decodeResource(getResources(),R.drawable.lasagne),"Vai a caso","Contorno",Arrays.asList(new Ingredient("Latte", 1, BitmapFactory.decodeResource(getResources(),R.drawable.default_img)))));
+        /*recipes.add(new Recipe(preferences.getString("currentUser",""), "Ricetta boh",
+                BitmapFactory.decodeResource(getResources(),R.drawable.lasagne),"Vai a caso","Contorno",Arrays.asList(new Ingredient("Latte", 1, BitmapFactory.decodeResource(getResources(),R.drawable.default_img)))));*/
         recyclerViewAdapter = new RV_AdapterAllRecipes(getContext(),recipes);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);

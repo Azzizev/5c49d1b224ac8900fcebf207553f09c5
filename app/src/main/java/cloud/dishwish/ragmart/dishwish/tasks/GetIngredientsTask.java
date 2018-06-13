@@ -53,10 +53,10 @@ public class GetIngredientsTask extends AsyncTask<String, Void, String> {
                 result.append(line);
 
                 //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
-                String name = line.split("@&@")[0];
+                String name = line.split("\\|\\|")[0];
 
                 int amount = 0;
-                String uri = line.split("@&@")[1];
+                String uri = line.split("\\|\\|")[1];
                 Bitmap picture = Bitmap.createScaledBitmap(new DownloadPicture().doInBackground(uri), 50,50,true);
 
                 ings.add(new Ingredient(name,amount,picture));

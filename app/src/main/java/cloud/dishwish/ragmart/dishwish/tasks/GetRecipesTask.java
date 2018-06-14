@@ -42,7 +42,7 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
             String password = (args0[1].equals("null")) ? "" : args0[1];
             String fbToken = (args0[2].equals("null")) ? "" : args0[2];
 
-            String link = "https://www.dishwish.cloud/utility/rcp.php";
+            String link = "https://www.dishwish.cloud/utility/rcp";
 
             String data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
                     URLEncoder.encode(username, "UTF-8");
@@ -102,7 +102,7 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
 
         try{
 
-            String link = "https://www.dishwish.cloud/utility/fvr.php";
+            String link = "https://www.dishwish.cloud/utility/fvr";
 
             String data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
                     URLEncoder.encode(username, "UTF-8");

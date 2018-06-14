@@ -51,7 +51,7 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
             String userEmail = username = arg0[4];
             String password = psw = arg0[5];
 
-            String link="https://www.dishwish.cloud/signin/reg.php";
+            String link="https://www.dishwish.cloud/signin/reg";
 
             String data  = URLEncoder.encode("Name", "UTF-8") + "=" +
                     URLEncoder.encode(name, "UTF-8");

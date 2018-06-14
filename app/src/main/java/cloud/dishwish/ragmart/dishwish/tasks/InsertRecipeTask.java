@@ -58,7 +58,7 @@ public class InsertRecipeTask extends AsyncTask<String, String, String> {
             if(!fbToken.isEmpty())
                 password = "";
 
-            String link = "https://www.dishwish.cloud/utility/ircp.php";
+            String link = "https://www.dishwish.cloud/utility/ircp";
 
             String data = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
                     URLEncoder.encode(username, "UTF-8");

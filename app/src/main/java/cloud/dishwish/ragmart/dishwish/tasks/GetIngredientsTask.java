@@ -30,7 +30,7 @@ public class GetIngredientsTask extends AsyncTask<String, Void, String> {
 
         try
         {
-            String link = "https://www.dishwish.cloud/utility/grd.php";
+            String link = "https://www.dishwish.cloud/utility/grd";
 
             URL url = new URL(link);
             URLConnection conn = url.openConnection();

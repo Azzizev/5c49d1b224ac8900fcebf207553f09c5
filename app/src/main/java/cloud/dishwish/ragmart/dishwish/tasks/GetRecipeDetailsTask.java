@@ -43,7 +43,7 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
             String title = recipe.getName();
 
             //Da modificare
-            String link = "https://www.dishwish.cloud/utility/GETDETAILS.php";
+            String link = "https://www.dishwish.cloud/utility/GETDETAILS";
 
             String data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
                     URLEncoder.encode(username, "UTF-8");

@@ -59,7 +59,7 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
             if(username.isEmpty() && password.isEmpty()) {
                 username = "null";
                 password = "null";
-                link = "https://www.dishwish.cloud/signin/fblog.php";
+                link = "https://www.dishwish.cloud/signin/fblog";
                 data  = URLEncoder.encode("FBEmail", "UTF-8") + "=" +
                         URLEncoder.encode(fbUsername, "UTF-8");
                 data += "&" + URLEncoder.encode("FBToken", "UTF-8") + "=" +
@@ -73,7 +73,7 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
             }
             else {
                 fbToken = "null";
-                link = "https://www.dishwish.cloud/signin/log.php";
+                link = "https://www.dishwish.cloud/signin/log";
                 data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
                         URLEncoder.encode(username, "UTF-8");
                 data += "&" + URLEncoder.encode("Password", "UTF-8") + "=" +

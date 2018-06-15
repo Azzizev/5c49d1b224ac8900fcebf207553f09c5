@@ -102,7 +102,7 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
 
         try{
 
-            String link = "https://www.dishwish.cloud/utility/fvr.php";
+            String link = "https://www.dishwish.cloud/utility/fvr";
 
             String data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
                     URLEncoder.encode(username, "UTF-8");

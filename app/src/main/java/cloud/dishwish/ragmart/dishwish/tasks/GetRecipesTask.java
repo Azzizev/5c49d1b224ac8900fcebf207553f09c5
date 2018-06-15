@@ -158,7 +158,7 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        //Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, s, Toast.LENGTH_LONG).show();
 
         if(HomeActivity.fragHomePage.recyclerViewAdapter != null)
             HomeActivity.fragHomePage.recyclerViewAdapter.notifyDataSetChanged();

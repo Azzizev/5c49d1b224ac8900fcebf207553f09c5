@@ -19,15 +19,11 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-
 import cloud.dishwish.ragmart.dishwish.R;
-import cloud.dishwish.ragmart.dishwish.classes.Recipe;
 import cloud.dishwish.ragmart.dishwish.classes.SectionsPageAdapter;
 import cloud.dishwish.ragmart.dishwish.classes.TypefaceSpan;
 import cloud.dishwish.ragmart.dishwish.new_recipe.NewRecipeActivity;
 import cloud.dishwish.ragmart.dishwish.start.StartActivity;
-import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -74,7 +70,6 @@ public class HomeActivity extends AppCompatActivity {
 
                     case 0:
                         tab.setIcon(R.drawable.ic_home_red);
-                        fragHomePage.recyclerViewAdapter.notifyDataSetChanged();
                         break;
 
                     case 1:

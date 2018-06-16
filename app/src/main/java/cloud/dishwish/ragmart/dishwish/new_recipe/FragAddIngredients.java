@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 import cloud.dishwish.ragmart.dishwish.classes.SectionsPageAdapter;
@@ -96,18 +98,37 @@ public class FragAddIngredients extends Fragment {
 
             case R.id.menu_ingredients_add:
 
-                EditText txtIngredients = NewRecipeActivity.txtAddIngredient;
+                if(checkIngredient(NewRecipeActivity.selectedIngredients)) {
+                    EditText txtIngredients = NewRecipeActivity.txtAddIngredient;
 
-                txtIngredients.setText("");
+                    txtIngredients.setText("");
 
-                for(Ingredient ingredient : NewRecipeActivity.selectedIngredients) {
-                    txtIngredients.setText(ingredient.getName() + ", " + txtIngredients.getText());
+                    for (Ingredient ingredient : NewRecipeActivity.selectedIngredients) {
+                        txtIngredients.setText(ingredient.getName() + ", " + txtIngredients.getText());
+                    }
+
+                    getActivity().onBackPressed();
+                } else {
+                    Toast.makeText(getContext(),"Inserire tutti i dati", Toast.LENGTH_SHORT).show();
                 }
 
-                getActivity().onBackPressed();
                 break;
         }
 
         return true;
+    }
+
+    public boolean checkIngredient(ArrayList<Ingredient> ings) {
+
+        boolean verification = true;
+
+        for(Ingredient ingredient: ings) {
+            if(ingredient.getAmount() <= 0)
+                verification = false;
+            if(ingredient.getMeasureUnity().isEmpty() || ingredient.getMeasureUnity() == null)
+                verification = false;
+        }
+
+        return verification;
     }
 }

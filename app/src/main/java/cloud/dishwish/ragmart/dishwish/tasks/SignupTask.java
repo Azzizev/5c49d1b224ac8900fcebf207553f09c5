@@ -100,7 +100,7 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
 
         if(result.contains("SUCCESS")) {
 
-            new GetRecipesTask(context).execute(username,psw);
+            new GetRecipesTask(context).execute(username,psw,"null");
 
             editorPrefs.putString("currentUser",username);
             editorPrefs.commit();

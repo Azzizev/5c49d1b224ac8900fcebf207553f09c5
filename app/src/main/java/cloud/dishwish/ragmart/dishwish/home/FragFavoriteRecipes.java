@@ -11,12 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.RV_AdapterAllRecipes;
@@ -26,10 +23,10 @@ import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 public class FragFavoriteRecipes extends Fragment implements AdapterView.OnItemSelectedListener{
 
     View view;
-    public static RecyclerView myRecyclerView;
+    private RecyclerView myRecyclerView;
     private Spinner recipeCategories;
     public static ArrayList<Recipe> favRecipes;
-    public static RV_AdapterAllRecipes recyclerViewAdapter;
+    public static RV_AdapterAllRecipes favRecyclerViewAdapter;
 
     @Nullable
     @Override
@@ -41,9 +38,9 @@ public class FragFavoriteRecipes extends Fragment implements AdapterView.OnItemS
         recipeCategories = (Spinner) view.findViewById(R.id.fav_categories_spinner);
 
         favRecipes = GetRecipesTask.seletectedFavRecs;
-        recyclerViewAdapter = new RV_AdapterAllRecipes(getContext(), favRecipes);
+        favRecyclerViewAdapter = new RV_AdapterAllRecipes(getContext(), favRecipes);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        myRecyclerView.setAdapter(recyclerViewAdapter);
+        myRecyclerView.setAdapter(favRecyclerViewAdapter);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.spinner_recipe_categories, android.R.layout.simple_spinner_item);
@@ -60,8 +57,11 @@ public class FragFavoriteRecipes extends Fragment implements AdapterView.OnItemS
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Toast.makeText(getContext(),"Ciao mondo", Toast.LENGTH_SHORT).show();
-        if(GetRecipesTask.favRecs != null)
-            GetRecipesTask.getSelectedFavRecipes(GetRecipesTask.favRecs,recipeCategories.getSelectedItem().toString());
+
+        String course = recipeCategories.getSelectedItem().toString();
+        if(GetRecipesTask.favRecs != null && GetRecipesTask.favRecs.size() > 0) {
+            GetRecipesTask.getSelectedFavRecipes(GetRecipesTask.favRecs,course);
+        }
     }
 
     @Override

@@ -17,8 +17,6 @@ import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 import cloud.dishwish.ragmart.dishwish.classes.Recipe;
 import cloud.dishwish.ragmart.dishwish.home.HomeActivity;
 
-import static cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask.getSelectedRecipes;
-
 public class GetRecipesTask extends AsyncTask<String, Void, String> {
 
     private Context context;
@@ -93,10 +91,8 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
 
             result = sb.toString();
 
-            if(!result.contains("ERR"))
-                getSelectedRecipes(allRecs, "Antipasti");
-
             result = getFavRecipes(username,password,fbToken);
+
         } catch (Exception e) {
             result = e + "";
         }
@@ -183,20 +179,23 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
         for(Recipe recipe: recs) {
 
             if(recipe.getCourse().equals(course))
-                seletectedRecs.add(recipe);
+                seletectedFavRecs.add(recipe);
         }
 
-        HomeActivity.fragFavoriteRecipes.recyclerViewAdapter.notifyDataSetChanged();
+        HomeActivity.fragFavoriteRecipes.favRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+    protected void onPostExecute(String result) {
+        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+
+        if(!result.contains("ERR"))
+            getSelectedRecipes(allRecs, "Antipasti");
 
         if(HomeActivity.fragHomePage.recyclerViewAdapter != null)
             HomeActivity.fragHomePage.recyclerViewAdapter.notifyDataSetChanged();
 
-        if(HomeActivity.fragFavoriteRecipes.recyclerViewAdapter != null)
-            HomeActivity.fragFavoriteRecipes.recyclerViewAdapter.notifyDataSetChanged();
+        if(HomeActivity.fragFavoriteRecipes.favRecyclerViewAdapter != null)
+            HomeActivity.fragFavoriteRecipes.favRecyclerViewAdapter.notifyDataSetChanged();
     }
 }

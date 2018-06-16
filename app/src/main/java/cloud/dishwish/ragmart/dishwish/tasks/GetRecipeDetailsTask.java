@@ -43,7 +43,7 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
             String title = recipe.getName();
 
             //Da modificare
-            String link = "https://www.dishwish.cloud/utility/GETDETAILS";
+            String link = "https://www.dishwish.cloud/utility/det";
 
             String data  = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
                     URLEncoder.encode(username, "UTF-8");
@@ -75,12 +75,12 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
                 sb.append(line);
 
                 String [] myRecipe= line.split("\\|\\|");
-                String author = myRecipe[0] + " " + myRecipe[1];
-                String name = myRecipe[2];
-                String course = myRecipe[3];
-                String uri = "https://" + myRecipe[4];
+                String name = myRecipe[0];
+                String process = myRecipe[1];
+                String uri = "https://" + myRecipe[2];
                 Bitmap picture = Bitmap.createScaledBitmap(new DownloadPicture().doInBackground(uri), 500,250,true);
-                String process = myRecipe[5];
+                String course = myRecipe[3];
+                String author = myRecipe[4] + " " + myRecipe[5];
 
                 //myRecipe[6] is string containing ingredient1#amount#measureUnity@&@ingredient2#amount#measureUnity...
                 String [] ingredients = myRecipe[6].split("@&@");
@@ -110,8 +110,6 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
             }
 
             result = sb.toString();
-
-            //result = getFavRecipes(username,password,fbToken);
         } catch (Exception e) {
             result = e + "";
         }
@@ -121,12 +119,11 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
 
-        result = "SUCCESSOOO";
 
         if(result.contains("SUCCESS")) {
 
             Intent intent = new Intent(context, DetailsActivity.class);
-            /*intent.putExtra("recipeTitle", recipe.getName());
+            intent.putExtra("recipeTitle", recipe.getName());
             intent.putExtra("recipeAuthor",recipe.getAuthor());
             intent.putExtra("recipeCourse",recipe.getCourse());
             intent.putExtra("recipePicture",recipe.getImage().toString());
@@ -145,14 +142,14 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
                     ings += "||";
             }
 
-            intent.putExtra("recipeIngredients",ings);*/
+            intent.putExtra("recipeIngredients",ings);
 
-            intent.putExtra("recipeTitle", "Recipe");
+            /*intent.putExtra("recipeTitle", "Recipe");
             intent.putExtra("recipeAuthor","Ayrton Martins");
             intent.putExtra("recipeCourse","Secondo");
             intent.putExtra("recipePicture","null");
             intent.putExtra("recipeProcess","Prova da solo");
-            intent.putExtra("recipeIngredients","ingredient1#100#ml||ingredient2#200#l");
+            intent.putExtra("recipeIngredients","ingredient1#100#ml||ingredient2#200#l");*/
 
             context.startActivity(intent);
         }

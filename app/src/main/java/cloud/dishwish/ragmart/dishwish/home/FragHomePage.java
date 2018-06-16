@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
@@ -28,7 +29,7 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
     View view;
     private RecyclerView myRecyclerView;
     private Spinner recipeCategories;
-    private List<Recipe> recipes;
+    private ArrayList<Recipe> recipes;
     public static RV_AdapterAllRecipes recyclerViewAdapter;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editorPrefs;

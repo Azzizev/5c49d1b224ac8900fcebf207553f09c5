@@ -1,12 +1,10 @@
 package cloud.dishwish.ragmart.dishwish.classes;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -15,23 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.home.FragFavoriteRecipes;
-import cloud.dishwish.ragmart.dishwish.home.FragHomePage;
-import cloud.dishwish.ragmart.dishwish.home.details.DetailsActivity;
 import cloud.dishwish.ragmart.dishwish.tasks.GetRecipeDetailsTask;
 import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 import cloud.dishwish.ragmart.dishwish.tasks.InsertRecipeTask;
@@ -41,14 +28,14 @@ import static android.content.Context.MODE_PRIVATE;
 public class RV_AdapterAllRecipes extends RecyclerView.Adapter<RV_AdapterAllRecipes.MyViewHolder> {
 
     Context myContext;
-    List<Recipe> recipeList;
+    ArrayList<Recipe> recipeList;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editorPrefs;
     private String username;
     private String password;
     private String fbToken;
 
-    public RV_AdapterAllRecipes(Context myContext, List<Recipe> recipeList) {
+    public RV_AdapterAllRecipes(Context myContext, ArrayList<Recipe> recipeList) {
         this.myContext = myContext;
         this.recipeList = recipeList;
         preferences = myContext.getSharedPreferences("prefs",MODE_PRIVATE);
@@ -91,22 +78,22 @@ public class RV_AdapterAllRecipes extends RecyclerView.Adapter<RV_AdapterAllReci
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(holder.isPresent(FragFavoriteRecipes.favRecipes)){
+                if(holder.isPresent(GetRecipesTask.favRecs)){
                     FragFavoriteRecipes.favRecipes.remove(recipeList.get(position));
-                    FragFavoriteRecipes.myRecyclerView.getAdapter().notifyDataSetChanged();
+                    FragFavoriteRecipes.favRecyclerViewAdapter.notifyDataSetChanged();
                     holder.setFavIcon(R.drawable.ic_favoriterec_grey);
                 } else {
 
                     new InsertRecipeTask(myContext, ingredients).execute(username,password,fbToken,author,title,process,course,"insertFavRec");
 
                         //FragFavoriteRecipes.favRecipes.add(recipeList.get(position));
-                        FragFavoriteRecipes.myRecyclerView.getAdapter().notifyDataSetChanged();
+                        FragFavoriteRecipes.favRecyclerViewAdapter.notifyDataSetChanged();
                         holder.setFavIcon(R.drawable.ic_favoriterec_red);
                 }
             }
         });
 
-        if(holder.isPresent(FragFavoriteRecipes.favRecipes)) {
+        if(holder.isPresent(GetRecipesTask.favRecs)) {
             holder.setFavIcon(R.drawable.ic_favoriterec_red);
         } else {
             holder.setFavIcon(R.drawable.ic_favoriterec_grey);

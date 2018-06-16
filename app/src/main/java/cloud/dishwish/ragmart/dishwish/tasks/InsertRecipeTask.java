@@ -2,6 +2,7 @@ package cloud.dishwish.ragmart.dishwish.tasks;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -13,7 +14,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
@@ -25,6 +25,13 @@ public class InsertRecipeTask extends AsyncTask<String, String, String> {
     private Context context;
     private ArrayList<Ingredient> ingredients;
     private String result = "";
+    private String username;
+    private String password;
+    private String fbToken;
+    private String author;
+    private String title;
+    private String process;
+    private String course;
 
     public InsertRecipeTask(Context context, ArrayList<Ingredient> ingredients) {
         this.context = context;
@@ -35,18 +42,19 @@ public class InsertRecipeTask extends AsyncTask<String, String, String> {
     public String doInBackground(String... args0) {
 
         try{
-            String username = args0[0];
-            String password = args0[1];
-            String fbToken = args0[2];
-            String author = args0[3];
-            String name = args0[4];
-            String process = args0[5];
-            String course = getCourseITA(args0[6]);
+            username = args0[0];
+            password = args0[1];
+            fbToken = args0[2];
+            author = args0[3];
+            title = args0[4];
+            process = args0[5];
+            course = args0[6];
 
             if(args0.length > 7)
-                result = insertFavRecipe(username,password,fbToken,author,name,context,process,course,ingredients);
+                result = insertFavRecipe(username,password,fbToken,author, title,context,process,course,ingredients);
             else {
 
+                course = getCourseITA(course);
 
                 String ings = "";
 
@@ -75,7 +83,7 @@ public class InsertRecipeTask extends AsyncTask<String, String, String> {
                 data += "&" + URLEncoder.encode("Author", "UTF-8") + "=" +
                         URLEncoder.encode(author, "UTF-8");
                 data += "&" + URLEncoder.encode("Title", "UTF-8") + "=" +
-                        URLEncoder.encode(name, "UTF-8");
+                        URLEncoder.encode(title, "UTF-8");
                 data += "&" + URLEncoder.encode("Process", "UTF-8") + "=" +
                         URLEncoder.encode(process, "UTF-8");
                 data += "&" + URLEncoder.encode("Image", "UTF-8") + "=" +
@@ -108,7 +116,7 @@ public class InsertRecipeTask extends AsyncTask<String, String, String> {
                 result = sb.toString();
 
                 if (result.contains("SUCCESS")) {
-                    GetRecipesTask.allRecs.add(new Recipe(author, name, BitmapFactory.decodeResource(context.getResources(), R.drawable.default_img), process, course, ingredients));
+                    GetRecipesTask.allRecs.add(new Recipe(author, title, BitmapFactory.decodeResource(context.getResources(), R.drawable.default_img), process, course, ingredients));
                 }
             }
         } catch (Exception e) {
@@ -119,7 +127,14 @@ public class InsertRecipeTask extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(String result) {
+
+        if(result.contains("done")) {
+            GetRecipesTask.favRecs.add(new Recipe(author, title, Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(),R.drawable.default_img),500,250,false), process, course, ingredients));
+            GetRecipesTask.getSelectedFavRecipes(GetRecipesTask.favRecs, course);
+            HomeActivity.fragFavoriteRecipes.favRecyclerViewAdapter.notifyDataSetChanged();
+        }
+
         if(result.contains("SUCCESS")) {
             HomeActivity.fragHomePage.recyclerViewAdapter.notifyDataSetChanged();
             context.startActivity(new Intent(context, HomeActivity.class));
@@ -136,8 +151,10 @@ public class InsertRecipeTask extends AsyncTask<String, String, String> {
 
         try{
 
-            if(!fbToken.isEmpty())
+            if(!fbToken.isEmpty()) {
                 password = "";
+                username = "";
+            }
 
             String link = "https://www.dishwish.cloud/utility/ifvr";
 
@@ -172,11 +189,7 @@ public class InsertRecipeTask extends AsyncTask<String, String, String> {
 
             result = sb.toString();
 
-            if(result.contains("SUCCESS")) {
-                GetRecipesTask.favRecs.add(new Recipe(author, title, BitmapFactory.decodeResource(context.getResources(), R.drawable.default_img), process, course, ingredients));
-                result = "done";
-            }
-
+            result = (result.contains("SUCCESS")) ? "done" : "ERR";
         } catch (Exception e) {
             result = "Exception: " + e.getMessage();
         }

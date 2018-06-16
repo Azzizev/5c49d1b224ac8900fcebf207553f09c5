@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="76dp"
+    android:background="@android:color/white"
+    android:layout_marginBottom="1dp"
+    android:elevation="1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="start">
+
+        <TextView
+            android:id="@+id/details_ingredients_name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Ingredient"
+            android:maxLines="1"
+            android:textColor="@android:color/black"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:textAllCaps="false"/>
+
+        <EditText
+            android:id="@+id/details_ingredients_amount"
+            android:layout_toEndOf="@+id/details_ingredients_name"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:scrollHorizontally="true"
+            android:hint="0"
+            android:background="@null"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="120dp"
+            android:textSize="20dp"
+            android:inputType="text"
+            android:gravity="right"/>
+
+        <EditText
+            android:id="@+id/details_ingredients_measure_unity"
+            android:layout_toEndOf="@+id/details_ingredients_amount"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:scrollHorizontally="true"
+            android:hint="ml"
+            android:background="@null"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="3dp"
+            android:textSize="20dp"
+            android:inputType="text"
+            android:gravity="right"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

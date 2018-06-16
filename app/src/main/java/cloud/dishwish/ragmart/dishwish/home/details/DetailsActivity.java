@@ -2,12 +2,14 @@ package cloud.dishwish.ragmart.dishwish.home.details;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,7 +25,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private TextView txtAuthor;
     private TextView txtTitle;
     private TextView txtCourse;
-    private TextView txtIngredients;
+    private Button btnIngredients;
     private TextView txtProcess;
     private ArrayList<Ingredient> ingredients;
 
@@ -38,19 +40,18 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         txtAuthor = (TextView) findViewById(R.id.details_recipe_author);
         txtTitle = (TextView) findViewById(R.id.details_recipe_title);
         txtCourse = (TextView) findViewById(R.id.details_recipe_course);
-        txtIngredients = (TextView) findViewById(R.id.details_recipe_ingredients);
+        btnIngredients = (Button) findViewById(R.id.details_recipe_ingredients);
         txtProcess = (TextView) findViewById(R.id.details_recipe_process);
 
         Intent intent = getIntent();
 
-        txtAuthor.setText(intent.getStringExtra("recipeAuthor"));
-        txtTitle.setText(intent.getStringExtra("recipeTitle"));
-        txtCourse.setText(intent.getStringExtra("recipeCourse"));
-        txtProcess.setText(intent.getStringExtra("recipeProcess"));
+        txtAuthor.setText(txtAuthor.getText() + " " + intent.getStringExtra("recipeAuthor"));
+        txtTitle.setText(txtTitle.getText() + " " + intent.getStringExtra("recipeTitle"));
+        txtCourse.setText(txtCourse.getText() + " " + intent.getStringExtra("recipeCourse"));
+        txtProcess.setText(txtProcess.getText() + " " + intent.getStringExtra("recipeProcess"));
+        loadIngredientsFromString(intent.getStringExtra("recipeIngredients"));
 
-        txtIngredients.setOnClickListener(this);
-
-
+        btnIngredients.setOnClickListener(this);
     }
 
     private void loadIngredientsFromString(String ings) {
@@ -85,6 +86,38 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         ListView myIngredients = (ListView) findViewById(R.id.details_ingredients_list);
 
+        IngredientListAdapter adapter = new IngredientListAdapter();
+        myIngredients.setAdapter(adapter);
+
         dialog.show();
+    }
+
+    protected class IngredientListAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return ingredients.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            view = getLayoutInflater().inflate(R.layout.details_ingredients_item, null);
+
+            TextView name = (TextView) view.findViewById(R.id.details_ingredients_name);
+            TextView amount = (TextView) view.findViewById(R.id.details_ingredients_amount);
+            TextView unityMeasure = (TextView) view.findViewById(R.id.details_ingredients_measure_unity);
+
+            return view;
+        }
     }
 }

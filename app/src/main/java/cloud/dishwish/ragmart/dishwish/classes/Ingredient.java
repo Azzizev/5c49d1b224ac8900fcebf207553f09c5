@@ -1,6 +1,10 @@
 package cloud.dishwish.ragmart.dishwish.classes;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import cloud.dishwish.ragmart.dishwish.R;
 
 public class Ingredient{
 
@@ -14,6 +18,13 @@ public class Ingredient{
         this.amount = amount;
         this.picture = picture;
         this.measureUnity = "";
+    }
+
+    public Ingredient(String name, int amount, String measureUnity, Context context) {
+        this.name = name;
+        this.amount = amount;
+        this.picture = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(),R.drawable.default_img),1,1, false);
+        this.measureUnity = measureUnity;
     }
 
     public String getMeasureUnity() {

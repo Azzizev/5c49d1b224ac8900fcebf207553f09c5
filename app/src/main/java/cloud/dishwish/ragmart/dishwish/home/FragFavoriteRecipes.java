@@ -40,7 +40,7 @@ public class FragFavoriteRecipes extends Fragment implements AdapterView.OnItemS
         myRecyclerView = (RecyclerView) view.findViewById(R.id.fav_recyclerView);
         recipeCategories = (Spinner) view.findViewById(R.id.fav_categories_spinner);
 
-        favRecipes = GetRecipesTask.favRecs;
+        favRecipes = GetRecipesTask.seletectedFavRecs;
         recyclerViewAdapter = new RV_AdapterAllRecipes(getContext(), favRecipes);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
@@ -60,6 +60,8 @@ public class FragFavoriteRecipes extends Fragment implements AdapterView.OnItemS
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Toast.makeText(getContext(),"Ciao mondo", Toast.LENGTH_SHORT).show();
+        if(GetRecipesTask.favRecs != null)
+            GetRecipesTask.getSelectedFavRecipes(GetRecipesTask.favRecs,recipeCategories.getSelectedItem().toString());
     }
 
     @Override

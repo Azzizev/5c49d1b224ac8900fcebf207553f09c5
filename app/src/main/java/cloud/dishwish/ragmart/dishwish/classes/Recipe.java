@@ -2,6 +2,7 @@ package cloud.dishwish.ragmart.dishwish.classes;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
@@ -14,9 +15,9 @@ public class Recipe {
     private String author;
     private String process;
     private String course;
-    private List<Ingredient> ingredients;
+    private ArrayList<Ingredient> ingredients;
 
-    public Recipe(String author, String name, Bitmap image, String process, String course, List<Ingredient> ingredients) {
+    public Recipe(String author, String name, Bitmap image, String process, String course, ArrayList<Ingredient> ingredients) {
         this.author = author;
         this.name = name;
         this.image = image;
@@ -63,11 +64,11 @@ public class Recipe {
         this.process = process;
     }
 
-    public List<Ingredient> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 

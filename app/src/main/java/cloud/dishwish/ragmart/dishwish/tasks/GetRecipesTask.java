@@ -8,27 +8,31 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 import cloud.dishwish.ragmart.dishwish.classes.Recipe;
 import cloud.dishwish.ragmart.dishwish.home.HomeActivity;
 
+import static cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask.getSelectedRecipes;
+
 public class GetRecipesTask extends AsyncTask<String, Void, String> {
 
     private Context context;
-    public static ArrayList<Recipe> recs;
+    public static ArrayList<Recipe> allRecs;
     public static ArrayList<Recipe> favRecs;
+    public static ArrayList<Recipe> seletectedRecs;
+    public static ArrayList<Recipe> seletectedFavRecs;
 
     public GetRecipesTask(Context context) {
         this.context = context;
-        this.recs = new ArrayList<Recipe>();
+        this.allRecs = new ArrayList<Recipe>();
         this.favRecs = new ArrayList<Recipe>();
+        this.seletectedRecs = new ArrayList<Recipe>();
+        this.seletectedFavRecs = new ArrayList<Recipe>();
     }
 
     @Override
@@ -82,12 +86,15 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
                 Bitmap picture = Bitmap.createScaledBitmap(new DownloadPicture().doInBackground(uri), 500,250,true);
                 String process = "";
 
-                recs.add(new Recipe(author,name,picture,process,course, new ArrayList<Ingredient>()));
+                allRecs.add(new Recipe(author,name,picture,process,course, new ArrayList<Ingredient>()));
 
                 i++;
             }
 
             result = sb.toString();
+
+            if(!result.contains("ERR"))
+                getSelectedRecipes(allRecs, "Antipasti");
 
             result = getFavRecipes(username,password,fbToken);
         } catch (Exception e) {
@@ -154,6 +161,32 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
         }
 
         return result;
+    }
+
+    public static void getSelectedRecipes(ArrayList<Recipe> recs, String course) {
+
+        seletectedRecs.clear();
+
+        for(Recipe recipe: recs) {
+
+            if(recipe.getCourse().equals(course))
+                seletectedRecs.add(recipe);
+        }
+
+        HomeActivity.fragHomePage.recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    public static void getSelectedFavRecipes(ArrayList<Recipe> recs, String course) {
+
+        seletectedFavRecs.clear();
+
+        for(Recipe recipe: recs) {
+
+            if(recipe.getCourse().equals(course))
+                seletectedRecs.add(recipe);
+        }
+
+        HomeActivity.fragFavoriteRecipes.recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -17,7 +17,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +33,8 @@ import cloud.dishwish.ragmart.dishwish.home.FragFavoriteRecipes;
 import cloud.dishwish.ragmart.dishwish.home.FragHomePage;
 import cloud.dishwish.ragmart.dishwish.home.details.DetailsActivity;
 import cloud.dishwish.ragmart.dishwish.tasks.GetRecipeDetailsTask;
+import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
+import cloud.dishwish.ragmart.dishwish.tasks.InsertRecipeTask;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -62,8 +71,15 @@ public class RV_AdapterAllRecipes extends RecyclerView.Adapter<RV_AdapterAllReci
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-        holder.txtNameRecipe.setText(recipeList.get(position).getName());
-        holder.imageRecipe.setImageBitmap(recipeList.get(position).getImage());
+        final String author = recipeList.get(position).getAuthor();
+        final String title = recipeList.get(position).getName();
+        final String process = recipeList.get(position).getProcess();
+        final String course = recipeList.get(position).getCourse();
+        final ArrayList<Ingredient> ingredients = recipeList.get(position).getIngredients();
+        Bitmap picture = recipeList.get(position).getImage();
+
+        holder.txtNameRecipe.setText(title);
+        holder.imageRecipe.setImageBitmap(picture);
 
         holder.btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,9 +96,12 @@ public class RV_AdapterAllRecipes extends RecyclerView.Adapter<RV_AdapterAllReci
                     FragFavoriteRecipes.myRecyclerView.getAdapter().notifyDataSetChanged();
                     holder.setFavIcon(R.drawable.ic_favoriterec_grey);
                 } else {
-                    FragFavoriteRecipes.favRecipes.add(recipeList.get(position));
-                    FragFavoriteRecipes.myRecyclerView.getAdapter().notifyDataSetChanged();
-                    holder.setFavIcon(R.drawable.ic_favoriterec_red);
+
+                    new InsertRecipeTask(myContext, ingredients).execute(username,password,fbToken,author,title,process,course,"insertFavRec");
+
+                        //FragFavoriteRecipes.favRecipes.add(recipeList.get(position));
+                        FragFavoriteRecipes.myRecyclerView.getAdapter().notifyDataSetChanged();
+                        holder.setFavIcon(R.drawable.ic_favoriterec_red);
                 }
             }
         });

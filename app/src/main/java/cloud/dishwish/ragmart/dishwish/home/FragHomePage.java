@@ -1,10 +1,6 @@
 package cloud.dishwish.ragmart.dishwish.home;
 
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,17 +13,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import cloud.dishwish.ragmart.dishwish.R;
-import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
 import cloud.dishwish.ragmart.dishwish.classes.Recipe;
 import cloud.dishwish.ragmart.dishwish.classes.RV_AdapterAllRecipes;
-import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
 import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -54,7 +45,7 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
         preferences = getActivity().getSharedPreferences("prefs",MODE_PRIVATE);
         editorPrefs = preferences.edit();
 
-        recipes = GetRecipesTask.recs;
+        recipes = GetRecipesTask.seletectedRecs;
 
         /*recipes.add(new Recipe(preferences.getString("currentUser",""), "Ricetta boh",
                 BitmapFactory.decodeResource(getResources(),R.drawable.lasagne),"Vai a caso","Contorno",Arrays.asList(new Ingredient("Latte", 1, BitmapFactory.decodeResource(getResources(),R.drawable.default_img)))));*/
@@ -82,6 +73,9 @@ public class FragHomePage extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Toast.makeText(getContext(),"Ciao mondo", Toast.LENGTH_SHORT).show();
+
+        if(GetRecipesTask.allRecs != null)
+            GetRecipesTask.getSelectedRecipes(GetRecipesTask.allRecs,recipeCategories.getSelectedItem().toString());
     }
 
     @Override

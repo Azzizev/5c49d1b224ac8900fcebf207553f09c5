@@ -26,7 +26,7 @@
             android:id="@+id/new_recipe_profile_pic"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/icon_eye"
+            android:src="@drawable/icon_eye"
             android:layout_marginTop="205dp"
             android:layout_marginLeft="25dp"/>
 
@@ -42,7 +42,7 @@
             android:id="@+id/new_recipe_course"
             android:layout_below="@id/new_recipe_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/new_recipe_ingredients"

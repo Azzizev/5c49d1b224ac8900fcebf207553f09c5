@@ -1,6 +1,8 @@
 package cloud.dishwish.ragmart.dishwish.home.details;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,15 +20,18 @@ import java.util.ArrayList;
 
 import cloud.dishwish.ragmart.dishwish.R;
 import cloud.dishwish.ragmart.dishwish.classes.Ingredient;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageView txtPicture;
+    private ImageView Picture;
+    private CircleImageView profilePic;
     private TextView txtAuthor;
     private TextView txtTitle;
     private TextView txtCourse;
     private Button btnIngredients;
     private TextView txtProcess;
+    private ListView myIngredients;
     private ArrayList<Ingredient> ingredients;
 
     @Override
@@ -36,7 +41,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         ingredients = new ArrayList<Ingredient>();
 
-        txtPicture = (ImageView) findViewById(R.id.details_recipe_image);
+        Picture = (ImageView) findViewById(R.id.details_recipe_image);
+        profilePic = (CircleImageView) findViewById(R.id.details_recipe_profile_pic);
         txtAuthor = (TextView) findViewById(R.id.details_recipe_author);
         txtTitle = (TextView) findViewById(R.id.details_recipe_title);
         txtCourse = (TextView) findViewById(R.id.details_recipe_course);
@@ -44,12 +50,12 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         txtProcess = (TextView) findViewById(R.id.details_recipe_process);
 
         Intent intent = getIntent();
-
-        txtAuthor.setText(txtAuthor.getText() + " " + intent.getStringExtra("recipeAuthor"));
-        txtTitle.setText(txtTitle.getText() + " " + intent.getStringExtra("recipeTitle"));
-        txtCourse.setText(txtCourse.getText() + " " + intent.getStringExtra("recipeCourse"));
-        txtProcess.setText(txtProcess.getText() + " " + intent.getStringExtra("recipeProcess"));
         loadIngredientsFromString(intent.getStringExtra("recipeIngredients"));
+
+        txtAuthor.setText(txtAuthor.getText() + ": " + intent.getStringExtra("recipeAuthor"));
+        txtTitle.setText(txtTitle.getText() + ": " + intent.getStringExtra("recipeTitle"));
+        txtCourse.setText(txtCourse.getText() + ": " + intent.getStringExtra("recipeCourse"));
+        txtProcess.setText(txtProcess.getText() + ":\n " + intent.getStringExtra("recipeProcess"));
 
         btnIngredients.setOnClickListener(this);
     }
@@ -72,27 +78,34 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.details_recipe_ingredients:
-                showRadioButtonDialog();
+                showIngredientsDialog();
                 break;
         }
     }
 
-    private void showRadioButtonDialog() {
+    private void showIngredientsDialog() {
 
         // custom dialog
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.details_ingredients);
+        myIngredients = (ListView) dialog.findViewById(R.id.details_ingredients_list);
 
-        ListView myIngredients = (ListView) findViewById(R.id.details_ingredients_list);
-
-        IngredientListAdapter adapter = new IngredientListAdapter();
+        IngredientListAdapter adapter = new IngredientListAdapter(this, ingredients);
         myIngredients.setAdapter(adapter);
 
         dialog.show();
     }
 
     protected class IngredientListAdapter extends BaseAdapter {
+
+        private ArrayList<Ingredient> ingredients;
+        private Context context;
+
+        public IngredientListAdapter (Context context, ArrayList<Ingredient> ingredients) {
+            this.context = context;
+            this.ingredients = ingredients;
+        }
 
         @Override
         public int getCount() {
@@ -101,21 +114,27 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         @Override
         public Object getItem(int i) {
-            return null;
+            return ingredients.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return ingredients.indexOf(ingredients.get(i));
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.details_ingredients_item, null);
+
+            LayoutInflater myInflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            view = myInflater.inflate(R.layout.details_ingredients_item, null);
 
             TextView name = (TextView) view.findViewById(R.id.details_ingredients_name);
             TextView amount = (TextView) view.findViewById(R.id.details_ingredients_amount);
             TextView unityMeasure = (TextView) view.findViewById(R.id.details_ingredients_measure_unity);
+
+            name.setText(ingredients.get(i).getName());
+            amount.setText(ingredients.get(i).getAmount() + "");
+            unityMeasure.setText(ingredients.get(i).getMeasureUnity() + "");
 
             return view;
         }

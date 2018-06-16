@@ -26,7 +26,7 @@
                 android:id="@+id/details_recipe_profile_pic"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@drawable/icon_eye"
+                android:src="@drawable/icon_eye"
                 android:layout_marginTop="205dp"
                 android:layout_marginLeft="25dp"/>
 
@@ -36,7 +36,7 @@
                 android:layout_toEndOf="@+id/details_recipe_profile_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Creatore: "
+                android:text="Creatore "
                 android:layout_marginLeft="3dp"
                 android:textSize="18dp"/>
 

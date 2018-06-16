@@ -121,10 +121,12 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
 
+        result = "SUCCESSOOO";
+
         if(result.contains("SUCCESS")) {
 
             Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra("recipeTitle", recipe.getName());
+            /*intent.putExtra("recipeTitle", recipe.getName());
             intent.putExtra("recipeAuthor",recipe.getAuthor());
             intent.putExtra("recipeCourse",recipe.getCourse());
             intent.putExtra("recipePicture",recipe.getImage().toString());
@@ -143,7 +145,14 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
                     ings += "||";
             }
 
-            intent.putExtra("recipeIngredients",ings);
+            intent.putExtra("recipeIngredients",ings);*/
+
+            intent.putExtra("recipeTitle", "Recipe");
+            intent.putExtra("recipeAuthor","Ayrton Martins");
+            intent.putExtra("recipeCourse","Secondo");
+            intent.putExtra("recipePicture","null");
+            intent.putExtra("recipeProcess","Prova da solo");
+            intent.putExtra("recipeIngredients","ingredient1#100#ml||ingredient2#200#l");
 
             context.startActivity(intent);
         }

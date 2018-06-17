@@ -42,6 +42,11 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
             String fbToken = (args0[2].equals("null")) ? "" : args0[2];
             String title = recipe.getName();
 
+            if(!fbToken.isEmpty()) {
+                username = "";
+                password = "";
+            }
+
             //Da modificare
             String link = "https://www.dishwish.cloud/utility/det";
 
@@ -52,7 +57,7 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
             data += "&" + URLEncoder.encode("FBToken", "UTF-8") + "=" +
                     URLEncoder.encode(fbToken, "UTF-8");
             data += "&" + URLEncoder.encode("Title", "UTF-8") + "=" +
-                    URLEncoder.encode(fbToken, "UTF-8");
+                    URLEncoder.encode(title, "UTF-8");
 
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
@@ -71,47 +76,49 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
 
             // Read Server Response
             while((line = reader.readLine()) != null) {
-
-                sb.append(line);
-
-                String [] myRecipe= line.split("\\|\\|");
-                String name = myRecipe[0];
-                String process = myRecipe[1];
-                String uri = "https://" + myRecipe[2];
-                Bitmap picture = Bitmap.createScaledBitmap(new DownloadPicture().doInBackground(uri), 500,250,true);
-                String course = myRecipe[3];
-                String author = myRecipe[4] + " " + myRecipe[5];
-
-                //myRecipe[6] is string containing ingredient1#amount#measureUnity@&@ingredient2#amount#measureUnity...
-                String [] ingredients = myRecipe[6].split("@&@");
-
-                ArrayList<Ingredient> ings = new ArrayList<Ingredient>();
-
-                for(int i = 0; i<ingredients.length; i++) {
-                    String nameIngredient = ingredients[i].split("#")[0];
-                    int amount = Integer.valueOf(ingredients[i].split("#")[1]);
-                    String unityMeasure = ingredients[i].split("#")[2];
-
-                    //In recipe ingredients' details the picture isn't needed
-                    Bitmap pic = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.default_img), 1,1, false);
-
-                    Ingredient ingredient = new Ingredient(nameIngredient, amount, pic);
-                    ingredient.setMeasureUnity(unityMeasure);
-
-                    ings.add(ingredient);
-                }
-
-                recipe.setAuthor(author);
-                recipe.setName(name);
-                recipe.setCourse(course);
-                recipe.setImage(picture);
-                recipe.setProcess(process);
-                recipe.setIngredients(ings);
+                sb.append(line + "\n");
             }
 
+            line = sb.toString();
+
+            String [] myRecipe= line.split("\\|\\|");
+            String name = myRecipe[0];
+            String process = myRecipe[1];
+            String uri = "https://" + myRecipe[2];
+            Bitmap picture = Bitmap.createScaledBitmap(new DownloadPicture().doInBackground(uri), 500,250,true);
+            String course = myRecipe[3];
+            String author = myRecipe[4] + " " + myRecipe[5];
+
+            //myRecipe[6] is string containing ingredient1#amount#measureUnity@&@ingredient2#amount#measureUnity...
+            String [] ingredients = myRecipe[6].split("@&@");
+
+            ArrayList<Ingredient> ings = new ArrayList<Ingredient>();
+
+            for(int i = 0; i<ingredients.length; i++) {
+                String nameIngredient = ingredients[i].split("#")[0];
+                int amount = Integer.valueOf(ingredients[i].split("#")[1]);
+                String unityMeasure = ingredients[i].split("#")[2];
+
+                //In recipe ingredients' details the picture isn't needed
+                Bitmap pic = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.default_img), 1,1, false);
+
+                Ingredient ingredient = new Ingredient(nameIngredient, amount, pic);
+                ingredient.setMeasureUnity(unityMeasure);
+
+                ings.add(ingredient);
+            }
+
+            recipe.setAuthor(author);
+            recipe.setName(name);
+            recipe.setCourse(course);
+            recipe.setImage(picture);
+            recipe.setProcess(process);
+            recipe.setIngredients(ings);
+
             result = sb.toString();
+
         } catch (Exception e) {
-            result = e + "";
+            result = "ERROR: " + e;
         }
         return result;
     }
@@ -120,7 +127,7 @@ public class GetRecipeDetailsTask extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String result) {
 
 
-        if(result.contains("SUCCESS")) {
+        if(!result.contains("ERR")) {
 
             Intent intent = new Intent(context, DetailsActivity.class);
             intent.putExtra("recipeTitle", recipe.getName());

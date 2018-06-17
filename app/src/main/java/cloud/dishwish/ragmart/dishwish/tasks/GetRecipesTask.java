@@ -169,7 +169,8 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
                 seletectedRecs.add(recipe);
         }
 
-        HomeActivity.fragHomePage.recyclerViewAdapter.notifyDataSetChanged();
+        if(HomeActivity.fragHomePage.recyclerViewAdapter != null)
+            HomeActivity.fragHomePage.recyclerViewAdapter.notifyDataSetChanged();
     }
 
     public static void getSelectedFavRecipes(ArrayList<Recipe> recs, String course) {

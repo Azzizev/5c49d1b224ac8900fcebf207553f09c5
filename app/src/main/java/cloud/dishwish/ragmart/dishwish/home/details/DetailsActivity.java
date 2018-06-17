@@ -50,7 +50,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         txtProcess = (TextView) findViewById(R.id.details_recipe_process);
 
         Intent intent = getIntent();
-        loadIngredientsFromString(intent.getStringExtra("recipeIngredients"));
+        String ings = intent.getStringExtra("recipeIngredients");
+        loadIngredientsFromString(ings);
 
         txtAuthor.setText(txtAuthor.getText() + ": " + intent.getStringExtra("recipeAuthor"));
         txtTitle.setText(txtTitle.getText() + ": " + intent.getStringExtra("recipeTitle"));

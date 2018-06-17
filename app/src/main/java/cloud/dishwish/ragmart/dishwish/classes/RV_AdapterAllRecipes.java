@@ -22,6 +22,7 @@ import cloud.dishwish.ragmart.dishwish.home.FragFavoriteRecipes;
 import cloud.dishwish.ragmart.dishwish.tasks.GetRecipeDetailsTask;
 import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 import cloud.dishwish.ragmart.dishwish.tasks.InsertRecipeTask;
+import cloud.dishwish.ragmart.dishwish.tasks.RemoveFavRecipe;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -79,16 +80,14 @@ public class RV_AdapterAllRecipes extends RecyclerView.Adapter<RV_AdapterAllReci
             @Override
             public void onClick(View v) {
                 if(holder.isPresent(GetRecipesTask.favRecs)){
-                    FragFavoriteRecipes.favRecipes.remove(recipeList.get(position));
-                    FragFavoriteRecipes.favRecyclerViewAdapter.notifyDataSetChanged();
                     holder.setFavIcon(R.drawable.ic_favoriterec_grey);
+                    new RemoveFavRecipe(myContext, FragFavoriteRecipes.favRecipes, recipeList.get(position)).execute(username, password, fbToken);
                 } else {
-
+                    holder.setFavIcon(R.drawable.ic_favoriterec_red);
                     new InsertRecipeTask(myContext, ingredients).execute(username,password,fbToken,author,title,process,course,"insertFavRec");
 
                         //FragFavoriteRecipes.favRecipes.add(recipeList.get(position));
                         FragFavoriteRecipes.favRecyclerViewAdapter.notifyDataSetChanged();
-                        holder.setFavIcon(R.drawable.ic_favoriterec_red);
                 }
             }
         });

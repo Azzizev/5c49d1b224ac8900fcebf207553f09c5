@@ -184,8 +184,8 @@ public class HomeActivity extends AppCompatActivity {
         if(currentUser == null && preferences.getString("currentUser","") == null){
             updateUI();
         }
-        else if(currentUser == null)
-            Toast.makeText(this,"Welcome " + preferences.getString("currentUser",""),Toast.LENGTH_LONG).show();
+        /*else if(currentUser == null)
+            Toast.makeText(this,"Welcome " + preferences.getString("currentUser",""),Toast.LENGTH_LONG).show();*/
     }
 
     private void updateUI() {

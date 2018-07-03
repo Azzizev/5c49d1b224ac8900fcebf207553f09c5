@@ -104,6 +104,6 @@ public class GetCurrentUserTask extends AsyncTask<String, Void ,String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Toast.makeText(context,"GetCurrentTask: " + result, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,"GetCurrentTask: " + result, Toast.LENGTH_SHORT).show();
     }
 }

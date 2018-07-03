@@ -188,7 +188,8 @@ public class GetRecipesTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
 
         if(!result.contains("ERR"))
             getSelectedRecipes(allRecs, "Antipasti");

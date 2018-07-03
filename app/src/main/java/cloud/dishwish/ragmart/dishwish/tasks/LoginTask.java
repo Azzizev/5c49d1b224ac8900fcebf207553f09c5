@@ -110,7 +110,7 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result){
 
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
 
         if(result.contains("SUCCESS")) {
 
@@ -140,7 +140,7 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
             Intent intent = new Intent(context, HomeActivity.class);
             context.startActivity(intent);
         } else {
-            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Error: " + result, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(context, StartActivity.class);
             context.startActivity(intent);
         }

@@ -134,13 +134,12 @@ public class InsertRecipeTask extends AsyncTask<String, String, String> {
             GetRecipesTask.getSelectedFavRecipes(GetRecipesTask.favRecs, course);
             HomeActivity.fragFavoriteRecipes.favRecyclerViewAdapter.notifyDataSetChanged();
         }
-
-        if(result.contains("SUCCESS")) {
+        else if(result.contains("SUCCESS")) {
             HomeActivity.fragHomePage.recyclerViewAdapter.notifyDataSetChanged();
             context.startActivity(new Intent(context, HomeActivity.class));
         }
         else
-            Toast.makeText(context,result,Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Error: " + result,Toast.LENGTH_SHORT).show();
     }
 
     private String insertFavRecipe(String username, String password, String fbToken,

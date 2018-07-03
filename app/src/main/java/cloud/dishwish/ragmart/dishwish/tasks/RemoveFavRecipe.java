@@ -38,6 +38,11 @@ public class RemoveFavRecipe extends AsyncTask<String, String, String> {
             String fbToken = args0[2];
             String title = recipe.getName();
 
+            if(!fbToken.isEmpty()) {
+                username = "";
+                password = "";
+            }
+
             String link = "https://www.dishwish.cloud/utility/rfvr";
 
             String data = URLEncoder.encode("UserEmail", "UTF-8") + "=" +
@@ -90,7 +95,7 @@ public class RemoveFavRecipe extends AsyncTask<String, String, String> {
             GetRecipesTask.getSelectedFavRecipes(GetRecipesTask.favRecs, recipe.getCourse());
             HomeActivity.fragFavoriteRecipes.favRecyclerViewAdapter.notifyDataSetChanged();
         } else {
-            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Error: " + result, Toast.LENGTH_SHORT).show();
         }
     }
 

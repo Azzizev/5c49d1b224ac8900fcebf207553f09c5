@@ -87,7 +87,22 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
                 break;
             }
 
-            return sb.toString();
+            String result = sb.toString();
+
+            if(result.contains("SUCCESS")) {
+
+                editorPrefs.putString("currentUser", userEmail);
+                editorPrefs.putString("fbToken", "");
+                editorPrefs.putString("password", password);
+                editorPrefs.putString("name", name);
+                editorPrefs.putString("surname", surname);
+                editorPrefs.putString("email", userEmail);
+                editorPrefs.putString("imageUrl", "https://i.ytimg.com/vi/Wb-MLkyLWGE/maxresdefault.jpg");
+
+                editorPrefs.commit();
+            }
+
+            return result;
         } catch(Exception e){
             return new String("Exception: " + e.getMessage());
         }
@@ -96,7 +111,7 @@ public class SignupTask extends AsyncTask <String, Integer, String>{
     @Override
     protected void onPostExecute(String result){
 
-        Toast.makeText(context,result,Toast.LENGTH_LONG).show();
+        //Toast.makeText(context,result,Toast.LENGTH_LONG).show();
 
         if(result.contains("SUCCESS")) {
 

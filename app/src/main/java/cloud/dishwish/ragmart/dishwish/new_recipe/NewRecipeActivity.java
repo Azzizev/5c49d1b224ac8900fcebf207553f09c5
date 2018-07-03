@@ -26,12 +26,14 @@ import cloud.dishwish.ragmart.dishwish.home.HomeActivity;
 import cloud.dishwish.ragmart.dishwish.tasks.GetIngredientsTask;
 import cloud.dishwish.ragmart.dishwish.tasks.GetRecipesTask;
 import cloud.dishwish.ragmart.dishwish.tasks.InsertRecipeTask;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener,View.OnFocusChangeListener, AdapterView.OnItemSelectedListener {
 
     private EditText txtTitle;
     private Button btnCreate;
     private EditText txtProcess;
+    private CircleImageView profilePic;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editorPrefs;
     private Spinner recipeCategories;
@@ -48,6 +50,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
 
         selectedIngredients = new ArrayList<Ingredient>();
 
+        profilePic = (CircleImageView) findViewById(R.id.new_recipe_profile_pic);
         txtTitle = (EditText) findViewById(R.id.new_recipe_title);
         txtAddIngredient = (EditText) findViewById(R.id.new_recipe_ingredients);
         btnCreate = (Button) findViewById(R.id.new_recipe_create);

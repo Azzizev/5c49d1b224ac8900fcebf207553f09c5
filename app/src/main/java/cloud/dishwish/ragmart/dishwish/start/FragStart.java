@@ -103,7 +103,8 @@ public class FragStart extends Fragment implements View.OnClickListener{
 
         new GetRecipesTask(getContext()).execute("null","null",preferences.getString("fbToken",""));
 
-        Toast.makeText(getContext(), preferences.getString("fbToken",""), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), preferences.getString("fbToken",""), Toast.LENGTH_LONG).show();
+
         Intent intent = new Intent(getContext(),HomeActivity.class);
         startActivity(intent);
     }

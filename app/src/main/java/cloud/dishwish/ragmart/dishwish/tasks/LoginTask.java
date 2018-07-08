@@ -112,7 +112,7 @@ public class LoginTask extends AsyncTask<String, Integer, String> {
 
         //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
 
-        if(result.contains("SUCCESS")) {
+        if(result.contains("SUCCESS") || result.isEmpty()) {
 
             new GetRecipesTask(context).execute(username,password,fbToken);
             new GetCurrentUserTask(context).execute(username,password,fbToken);
